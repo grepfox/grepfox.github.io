@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://scripts.withcabin.com/hello.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact | Grepfox</title>
+  <link href="https://fonts.googleapis.com/css?family=Inter:400,700|Poppins:400,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .contact-section {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 60vh;
+      padding: 3vw 0;
+    }
+    .contact-links {
+      font-size: 1.1rem;
+      line-height: 2;
+    }
+    .contact-links a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+      word-break: break-all;
+    }
+    .contact-links a:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="logo">Grepfox</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="contact.html" class="active">Contact Me</a></li>
+        <li><a href="downloads.html">Downloads</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section class="contact-section">
+      <div class="card" id="contact">
+        <img src="https://static.vecteezy.com/system/resources/thumbnails/006/697/974/small_2x/mail-email-icon-template-black-color-editable-mail-email-icon-symbol-flat-illustration-for-graphic-and-web-design-free-vector.jpg" alt="Contact" class="card-img">
+        <div class="card-body">
+          <h2 class="card-title">Contact Me</h2>
+          <div class="contact-links card-desc">
+            Telegram: <a href="https://t.me/grepfox" target="_blank">@grepfox</a><br>
+            Email: <a href="mailto:grepfox@tutamail.com">grepfox@tutamail.com</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="footer-content">
+      <div>© 2025 Grepfox. All rights reserved.</div>
+    </div>
+  </footer>
+</body>
+</html>

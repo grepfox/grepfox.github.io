@@ -2,180 +2,49 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LineageOS for Vayu</title>
-  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      margin: 0;
-      font-family: 'Ubuntu', sans-serif;
-      background: #0f0f0f;
-      color: #e0e0e0;
-      scroll-behavior: smooth;
-    }
-    header {
-      background: #1f1f1f;
-      padding: 20px;
-      text-align: center;
-      animation: fadeInDown 1s ease-in-out;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 2.5em;
-      color: #00bcd4;
-    }
-    .hero {
-      padding: 50px 20px;
-      text-align: center;
-      animation: fadeInUp 1.2s ease-in-out;
-    }
-    .hero p {
-      font-size: 1.2em;
-      color: #ccc;
-    }
-    .btn-download {
-      background: #00bcd4;
-      color: #000;
-      padding: 15px 30px;
-      border: none;
-      border-radius: 5px;
-      font-size: 1em;
-      cursor: pointer;
-      margin-top: 20px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .btn-download:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 4px 12px rgba(0, 188, 212, 0.3);
-    }
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      padding: 40px 20px;
-    }
-    .feature {
-      background: #1c1c1c;
-      border-radius: 10px;
-      padding: 20px;
-      text-align: center;
-      transition: transform 0.3s ease;
-    }
-    .feature:hover {
-      transform: translateY(-5px);
-    }
-    .feature h3 {
-      color: #00bcd4;
-    }
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #1a1a1a;
-      font-size: 0.9em;
-      color: #888;
-    }
-    iframe {
-      border: none;
-      width: 90%;
-      max-width: 800px;
-      height: 400px;
-      margin: 20px auto;
-      display: block;
-      background: #1c1c1c;
-      border-radius: 10px;
-    }
-    @keyframes fadeInUp {
-      from {opacity: 0; transform: translateY(30px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-    @keyframes fadeInDown {
-      from {opacity: 0; transform: translateY(-30px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 1.8em;
-      }
-      .hero p, .feature p {
-        font-size: 1em;
-      }
-      .btn-download {
-        width: 80%;
-        font-size: 1em;
-      }
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Home | Grepfox</title>
+  <link href="https://fonts.googleapis.com/css?family=Inter:400,700|Poppins:400,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+    <script async src="https://scripts.withcabin.com/hello.js"></script>
 </head>
 <body>
-  <script async src="https://scripts.withcabin.com/hello.js"></script>
-  <header>
-    <h1>LineageOS 22.2 for Vayu</h1>
+  <header class="site-header">
+    <div class="logo">Grepfox</div>
+    <nav>
+      <ul>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="contact.html" >Contact Me</a></li>
+        <li><a href="downloads.html">Downloads</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <section class="hero">
-    <p>Experience the smooth and customizable Android experience on your POCO X3 Pro (vayu) with LineageOS 22.2. Lightweight, privacy-respecting, and stable.</p>
-    <a href="#download"><button class="btn-download">Download Build</button></a>
-  </section>
-
-  <section class="features">
-    <div class="feature">
-      <h3>Android 15</h3>
-      <p>Enjoy the latest features and security updates.</p>
-    </div>
-    <div class="feature">
-      <h3>Stable & Fast</h3>
-      <p>Optimized kernel and performance tweaks for vayu.</p>
-    </div>
-  <div class="feature" onclick="window.open('https://github.com/lineage-vayu', '_blank')">
-    <h3>Open Source</h3>
-    <p>Completely transparent and community-driven development.</p>
+  <main>
+    <section class="card-grid">
+      <div class="card" id="card1">
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb" class="card-img">
+        <div class="card-body">
+          <h2 class="card-title">Blog & Guides (coming soon)</h2>
+          <p class="card-desc">Blogs and guides landing soon</p>
+        </div>
+      </div>
+<a href="downloads.html" class="card" id="card2" style="text-decoration:none; color:inherit;">
+  <img src="https://cdn.shopify.com/app-store/listing_images/602903db3dc6fd0052d12585748da098/icon/CPa95duyvIEDEAE=.png" class="card-img" alt="Downloads">
+  <div class="card-body">
+    <h2 class="card-title">Downloads</h2>
+    <p class="card-desc">Get all the files and releases</p>
   </div>
-  </section>
+</a>
 
-  <section class="hero" id="download">
-    <h2>Ready to Flash?</h2>
-    <p>Download the latest build and recovery. Follow our flashing guide below.</p>
-    <a href="https://github.com/grepfox/ota_release/releases/download/15062025/LineageOSMOD-22.2-signed-20250615-UNOFFICIAL-vayu.zip"><button class="btn-download">Get Build</button></a>
-    <br><br>
-    <a href="https://github.com/grepfox/ota_release/releases/download/15062025/recovery.img"><button class="btn-download">Get Latest Recovery</button></a>
-  </section>
-
-  <section class="hero">
-    <h2>Notes</h2>
-    <p><li>SafetyNet does not pass by default.</li>
-<li>Use MIUI V14.0.x.0 Firmware.</li>
-<li>Lineage Recovery is recommended for full OTA update support.
-</li>
-</p>
-  </section>
-
-<section class="hero">
-  <h2>Changelog</h2>
-  <pre id="changelog">Loading changelog...</pre>
-</section>
-
-<script>
-  fetch('https://raw.githubusercontent.com/grepfox/ota_release/main/changelog-vayu.txt')
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById('changelog').textContent = data;
-    })
-    .catch(err => {
-      document.getElementById('changelog').textContent = 'Failed to load changelog.';
-      console.error(err);
-    });
-</script>
-
-  <section class="hero" onclick="window.open('https://github.com/grepfox/ota_release/releases', '_blank')">
-   <h1>More Information & Older Builds</h1>
-</p>
-  </section>
+      </div>
+    </section>
+  </main>
 
   <footer>
-    <p>&copy; 2025 LineageOS for Vayu | Maintained by Grepfox</p>
+    <div class="footer-content">
+      <div>© 2025 Grepfox. All rights reserved.</div>
+    </div>
   </footer>
 </body>
 </html>
