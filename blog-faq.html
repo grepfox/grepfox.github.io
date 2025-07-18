@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FAQ | Grepfox Blog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.7;
+      color: var(--text-dark);
+      background: var(--bg);
+      padding-bottom: 2rem;
+    }
+
+    main {
+      max-width: 850px;
+      margin: 3rem auto;
+      padding: 0 1.5rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      margin-top: 2rem;
+      margin-bottom: 0.7rem;
+      color: var(--primary);
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    footer {
+      margin-top: 3rem;
+    }
+
+    /* Dark mode content overrides */
+    :root[data-theme='dark'] main {
+      color: var(--text-dark);
+    }
+
+    :root[data-theme='dark'] h2 {
+      color: #60aaff;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="logo">Grepfox</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="downloads.html">Downloads</a></li>
+        <li><a href="blog.html" class="active">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <button id="toggle-theme" title="Toggle dark mode"
+      style="font-size: 1.3rem; margin-left: 1rem; background:none; border:none; cursor: pointer;">🌙</button>
+  </header>
+
+  <!-- Blog Post -->
+  <main>
+    <h1>Frequently Asked Questions (FAQ)</h1>
+
+    <p>Welcome to the official Grepfox FAQ! We've compiled answers to your most common questions. Whether you're troubleshooting, downloading builds, or just starting — this guide will help you out.</p>
+
+    <h2>📁 Where are the download files?</h2>
+    <p>You can find all available builds on the <a href="downloads.html">Downloads</a> page. Everything is organized by device. Just navigate like a file explorer.</p>
+
+    <h2>🛠️ Can I download older builds?</h2>
+    <p>Yes! Development builds and testing archives can be found inside the <code>/archive</code> folders under each variant directory.</p>
+
+    <h2>🛠️ Can I flash rom?</h2>
+    <p>
+      Install recovery <br>
+      Flash rom <br>
+      Flash firmware (any miui 14.0.x) <br>
+      Format data <br>
+      Boom! Reboot to system
+    </p>
+
+    <h2>🔒 Are the builds signed?</h2>
+    <p>All public releases are signed by throught my private keys :D</p>
+
+    <h2>📬 How can I contact Grepfox?</h2>
+    <p>You reach out on Telegram group chat: <a href="https://t.me/grepfox_chat">@grepfox</a> or via email: <a href="mailto:grepfox@tutamail.com">grepfox@tutamail.com</a>.</p>
+
+    <h2>📅 How often are updates released?</h2>
+    <p>Stable releases are typically published monthly. However, dev builds or patches might appear more frequently in the archive folders.</p>
+
+    <h2>🚀 How can I contribute?</h2>
+    <p>We're open to community contributions! If you're a developer or tester, reach out via Telegram or email. You can also help by reporting bugs and giving feedback on test builds or throught donation while devs can help with improvements by shooting a PR to github repos.</p>
+
+    <h2>💡 Can't find what you're looking for?</h2>
+    <p>No problem! Let us know in Telegram group and we will assist you.</p>
+
+    <br>
+    <p><strong>Thanks for reading. Wishing you a good day!</strong></p>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div>© 2025 Grepfox. All rights reserved.</div>
+      <div class="socials">
+        <a href="#" aria-label="Twitter">🐦</a>
+        <a href="#" aria-label="Instagram">📸</a>
+        <a href="#" aria-label="Facebook">📘</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Dark Mode Script -->
+  <script>
+    const toggleBtn = document.getElementById('toggle-theme');
+    const root = document.documentElement;
+
+    function setTheme(mode) {
+      root.setAttribute('data-theme', mode);
+      localStorage.setItem('theme', mode);
+      if (toggleBtn) toggleBtn.textContent = mode === 'dark' ? '🌞' : '🌙';
+    }
+
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => {
+        const isDark = root.getAttribute('data-theme') === 'dark';
+        setTheme(isDark ? 'light' : 'dark');
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const defaultMode = saved || (prefersDark ? 'dark' : 'light');
+      setTheme(defaultMode);
+    });
+  </script>
+
+</body>
+</html>

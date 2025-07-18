@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blog | Grepfox</title>
+  <link href="https://fonts.googleapis.com/css?family=Inter:400,700|Poppins:400,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .blog-grid {
+      display: grid;
+      gap: 2rem;
+      padding: 3rem 8vw;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    .blog-card .card-img {
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .blog-meta {
+      font-size: 0.9rem;
+      color: #888;
+      margin-bottom: 0.7rem;
+    }
+
+    .read-more {
+      margin-top: 1rem;
+      display: inline-block;
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--primary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .read-more:hover {
+      color: var(--accent);
+    }
+
+    /* Dark mode overrides */
+    :root[data-theme='dark'] .blog-meta {
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="logo">Grepfox</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="downloads.html">Downloads</a></li>
+        <li><a href="blog.html" class="active">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <button id="toggle-theme" title="Toggle dark mode"
+      style="font-size: 1.3rem; margin-left: 1rem; background:none; border:none; cursor: pointer;">🌙</button>
+  </header>
+
+  <main>
+    <section class="blog-grid">
+
+      <a href="blog-faq.html" class="card blog-card">
+        <img src="https://cdn.prod.website-files.com/659415b46df8ea43c3877776/65b7c35ba2496833f61a9789_frequently-asked-questions.jpeg" alt="Tech" class="card-img">
+        <a class="card-body">
+          <p class="blog-meta">Jul 2025 • Info</p>
+          <h2 class="card-title">Frequently asked questions</h2>
+          <p class="card-desc">The post contains answer of frequently asked questions so you wouldn't need to go anywhere.</p>
+          <a href="blog-faq.html" class="read-more">Read more →</a>
+        </a>
+    </a>
+
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div>© 2025 Grepfox. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <!-- Dark Mode Toggle Script -->
+  <script>
+    const toggleBtn = document.getElementById('toggle-theme');
+    const root = document.documentElement;
+
+    function setTheme(mode) {
+      root.setAttribute('data-theme', mode);
+      localStorage.setItem('theme', mode);
+      if (toggleBtn) toggleBtn.textContent = mode === 'dark' ? '🌞' : '🌙';
+    }
+
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => {
+        const isDark = root.getAttribute('data-theme') === 'dark';
+        setTheme(isDark ? 'light' : 'dark');
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const defaultMode = saved || (prefersDark ? 'dark' : 'light');
+      setTheme(defaultMode);
+    });
+  </script>
+</body>
+</html>
