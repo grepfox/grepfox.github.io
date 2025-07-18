@@ -156,3 +156,62 @@ footer {
     gap: .6rem;
   }
 }
+
+:root[data-theme='dark'] {
+  --primary: #60aaff;
+  --accent: #facc15;
+  --bg: #121212;
+  --white: #1e1e1e;
+  --gray: #d1d5db;
+  --text-dark: #f3f4f6;
+}
+
+:root[data-theme='dark'] body {
+  background-color: var(--bg);
+  color: var(--text-dark);
+}
+
+:root[data-theme='dark'] .site-header,
+:root[data-theme='dark'] .card,
+:root[data-theme='dark'] footer {
+  background-color: var(--white);
+  color: var(--text-dark);
+}
+
+:root[data-theme='dark'] nav a {
+  color: var(--gray);
+}
+:root[data-theme='dark'] nav a.active,
+:root[data-theme='dark'] nav a:hover {
+  color: var(--primary);
+  border-bottom: 2px solid var(--accent);
+}
+
+:root[data-theme='dark'] .card-title {
+  color: #fff;
+}
+:root[data-theme='dark'] .card-desc {
+  color: var(--gray);
+}
+:root[data-theme='dark'] .socials a {
+  color: var(--gray);
+}
+:root[data-theme='dark'] .socials a:hover {
+  color: var(--primary);
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
