@@ -8,12 +8,19 @@
   <link href="https://fonts.googleapis.com/css?family=Inter:400,700|Poppins:400,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
   <style>
-    .blog-grid {
-      display: grid;
-      gap: 2rem;
-      padding: 3rem 8vw;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    }
+.blog-grid {
+  display: grid;
+  gap: 2rem;
+  padding: 3rem 6vw;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+@media (min-width: 1024px) {
+  .blog-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 
     .blog-card .card-img {
       height: 180px;
@@ -62,19 +69,30 @@
   </header>
 
   <main>
-    <section class="blog-grid">
+<section class="blog-grid">
 
-      <a href="blog-faq.html" class="card blog-card">
-        <img src="https://cdn.prod.website-files.com/659415b46df8ea43c3877776/65b7c35ba2496833f61a9789_frequently-asked-questions.jpeg" alt="Tech" class="card-img">
-        <a class="card-body">
-          <p class="blog-meta">Jul 2025 • Info</p>
-          <h2 class="card-title">Frequently asked questions</h2>
-          <p class="card-desc">The post contains answer of frequently asked questions so you wouldn't need to go anywhere.</p>
-          <a href="blog-faq.html" class="read-more">Read more →</a>
-        </a>
-    </a>
+  <a href="blog-faq.html" class="card blog-card">
+    <img src="https://cdn.prod.website-files.com/659415b46df8ea43c3877776/65b7c35ba2496833f61a9789_frequently-asked-questions.jpeg" alt="FAQ Image" class="card-img">
+    <div class="card-body">
+      <p class="blog-meta">Jul 2025 • Info</p>
+      <h2 class="card-title">Frequently Asked Questions</h2>
+      <p class="card-desc">This post contains answers to frequently asked questions so you won't need to go anywhere else.</p>
+      <span class="read-more">Read more →</span>
+    </div>
+  </a>
 
-    </section>
+  <a href="yaap-changelogs.html" class="card blog-card">
+    <img src="https://amoeboids.com/wp-content/uploads/2020/02/Pointers-for-making-a-good-changelog.webp" alt="YAAP Update" class="card-img">
+    <div class="card-body">
+      <p class="blog-meta">Jul 2025 • Changelogs</p>
+      <h2 class="card-title">YAAP 23 July 25 Update Changelogs</h2>
+      <p class="card-desc">Click here to see July changelogs for YAAP.</p>
+      <span class="read-more">Read more →</span>
+    </div>
+  </a>
+
+</section>
+
   </main>
 
   <footer>
