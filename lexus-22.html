@@ -388,6 +388,10 @@ Proceed entirely at your own risk.
             <li>Sideload LineageOS ROM:</li>
           </ol>
           <div class="code-block">adb sideload lineage-22.2-*.zip</div>
+          <div>If it says error 7</div>
+          <p>Reboot to fastboot and run</p>
+          <div class="code-block">fastboot wipe-super super_empty.img</div>  and reboot to recovery and sideload.
+
         `
       },
       {
