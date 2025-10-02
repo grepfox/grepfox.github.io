@@ -1,454 +1,343 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>LineageOS for OnePlus Nord 5 (lexus)</title>
-  <link href="https://fonts.googleapis.com/css?family=Inter:400,700|Poppins:400,700&display=swap" rel="stylesheet">  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LineageOS for OnePlus Nord 5 (lexus) | Grepfox</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
   <script async src="https://scripts.withcabin.com/hello.js"></script>
-
-  <link rel="stylesheet" href="/styles.css" />
-  <style>
-    main {
-      max-width: 800px;
-      margin: 3rem auto 2rem auto;
-      padding: 0 1.5rem;
-      font-family: 'Inter', sans-serif;
-      line-height: 1.7;
-      color: var(--text-dark);
-      background: var(--bg);
-    }
-    .post-meta {
-      color: #8ea1b2;
-      font-size: 0.98rem;
-      margin-bottom: 1.2rem;
-    }
-    h1 {
-      font-size: 2.15rem;
-      margin-bottom: 1rem;
-      color: var(--primary);
-    }
-    h2, h3 {
-      margin-top: 2.5rem;
-      font-size: 1.25rem;
-      color: var(--primary);
-    }
-    ul, ol {
-      margin: 1rem 0 1.5rem 1.3rem;
-      padding-left: 1rem;
-    }
-    .notice {
-      background: #fff9db;
-      padding: 1rem 1.2rem;
-      border-radius: 8px;
-      border-left: 3px solid var(--accent);
-      margin-bottom: 2rem;
-      color: #7B5D01;
-    }
-    .device-specs {
-      background: #f8fafc;
-      padding: 1.5rem;
-      border-radius: 12px;
-      border-left: 4px solid var(--primary);
-      margin: 2rem 0;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-    }
-    .spec-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 0.5rem 0;
-      border-bottom: 1px solid #e2e8f0;
-    }
-    .spec-label {
-      font-weight: 600;
-      color: var(--gray);
-    }
-    .spec-value {
-      font-weight: 500;
-      color: var(--text-dark);
-      text-align: right;
-    }
-    .danger-warning {
-      background: #fecaca;
-      padding: 1rem 1.2rem;
-      border-radius: 8px;
-      border-left: 4px solid #ef4444;
-      margin: 2rem 0;
-      color: #991b1b;
-    }
-    /* Windows-style stepper styles */
-    .windows-steps-container {
-      max-width: 600px;
-      margin: 3rem auto;
-      background: var(--white);
-      border-radius: var(--round);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-      overflow: hidden;
-    }
-    .steps-titlebar {
-      background: linear-gradient(135deg, var(--primary), #4f46e5);
-      color: white;
-      padding: 1.2rem 1.5rem;
-      font-weight: 700;
-      font-size: 1.1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .step-content {
-      padding: 2rem;
-      min-height: 200px;
-      position: relative;
-    }
-    .step-content h3 {
-      margin-top: 0;
-      margin-bottom: 1rem;
-      color: var(--primary);
-      font-size: 1.4rem;
-    }
-    .step-content code {
-      background: #1e293b;
-      color: #e2e8f0;
-      padding: 0.2rem 0.4rem;
-      border-radius: 4px;
-      font-family: 'Consolas', 'Monaco', monospace;
-      font-size: 0.9rem;
-    }
-    .step-content .code-block {
-      background: #1e293b;
-      color: #e2e8f0;
-      padding: 1rem;
-      border-radius: 8px;
-      font-family: 'Consolas', 'Monaco', monospace;
-      margin: 1rem 0;
-      overflow-x: auto;
-      border-left: 4px solid var(--accent);
-    }
-    .stepper-controls {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-      background: rgba(248, 250, 252, 0.8);
-      padding: 1.2rem 1.5rem;
-      border-top: 1px solid #e5e7eb;
-    }
-    .step-btn {
-      min-width: 100px;
-      background: var(--primary);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 0.6rem 1.2rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-family: inherit;
-    }
-    .step-btn:hover:not(:disabled) {
-      background: #1040c9;
-      transform: translateY(-1px);
-    }
-    .step-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none;
-    }
-    .step-btn.next-btn {
-      background: var(--accent);
-      color: #000;
-    }
-    .step-btn.next-btn:hover:not(:disabled) {
-      background: #d97706;
-    }
-    .step-pager {
-      font-weight: 500;
-      color: var(--primary);
-      font-size: 1rem;
-    }
-    :root[data-theme='dark'] main {
-      color: var(--text-dark);
-    }
-    :root[data-theme='dark'] h1, :root[data-theme='dark'] h2, :root[data-theme='dark'] h3 {
-      color: #60aaff;
-    }
-    :root[data-theme='dark'] .notice {
-      background: #282700;
-      color: #fadb6b;
-      border-color: var(--accent);
-    }
-    :root[data-theme='dark'] .device-specs {
-      background: #1e293b;
-      border-color: #60aaff;
-    }
-    :root[data-theme='dark'] .spec-item {
-      border-color: #334155;
-    }
-    :root[data-theme='dark'] .danger-warning {
-      background: #7f1d1d;
-      color: #fca5a5;
-      border-color: #ef4444;
-    }
-    :root[data-theme='dark'] .windows-steps-container {
-      background: var(--white);
-    }
-    :root[data-theme='dark'] .stepper-controls {
-      background: rgba(30, 41, 59, 0.8);
-    }
-  </style>
 </head>
 <body>
-  <!-- Header -->
   <header class="site-header">
     <div class="logo">Grepfox</div>
     <nav>
       <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="downloads.html">Downloads</a></li>
         <li><a href="blog.html" class="active">Blog</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
-    <button id="toggle-theme" title="Toggle dark mode"
-      style="font-size: 1.3rem; margin-left: 1rem; background:none; border:none; cursor: pointer;">🌙</button>
+    <button id="toggle-theme" title="Toggle dark mode">
+      <i class="fas fa-moon theme-icon"></i>
+    </button>
   </header>
 
   <main>
-    <div class="post-meta">
-      <span>Published: September 18, 2025</span> · <span>LineageOS Guide</span>
-    </div>
+    <article class="blog-post">
+      <header class="post-header">
+        <div class="post-meta">Published: September 18, 2025 • LineageOS Guide</div>
+        <h1 class="post-title">LineageOS 22.2 Unofficial for OnePlus Nord 5 ("lexus")</h1>
+      </header>
 
-    <h1>LineageOS 22.2 Unofficial for OnePlus Nord 5 ("lexus")</h1>
-    <div class="notice">
-      <strong>Download:</strong> <a href="https://www.dropbox.com/scl/fo/zlejdh2whm84xmhdxd31g/ALDwu285CyH0tTBZSSBpdWU?rlkey=xirddgornddrhzwpi3hj1e14p&st=9nrn8jkq&dl=0" style="color:var(--primary);"><u>LineageOS Downloads</u></a>
-      <br>
-      <strong>Changelog:</strong> <a href="https://github.com/derpbygrep/ota/blob/main/changelog.md" style="color:var(--primary);"><u>Here</u></a>
-      <br>
-      <strong>Maintainer:</strong> grepfox (<a href="https://github.com/grepfox" target="_blank">@grepfox</a>)
-      <br>
-    </div>
+      <div class="post-content">
+        <div class="notice-box">
+          <strong>Download:</strong> <a href="https://www.dropbox.com/scl/fo/zlejdh2whm84xmhdxd31g/ALDwu285CyH0tTBZSSBpdWU?rlkey=xirddgornddrhzwpi3hj1e14p&st=9nrn8jkq&dl=0">LineageOS Downloads</a><br>
+          <strong>Changelog:</strong> <a href="https://github.com/derpbygrep/ota/blob/main/changelog.md">Here</a><br>
+          <strong>Maintainer:</strong> grepfox (<a href="https://github.com/grepfox" target="_blank">@grepfox</a>)<br>
+          <strong>Support Group:</strong> <a href="https://github.com/grepfox_chat" target="_blank">Here</a>
+        </div>
 
-    <h2>Device Specs</h2>
-    <div class="device-specs">
-      <div>
-        <div class="spec-item">
-          <span class="spec-label">SoC:</span>
-          <span class="spec-value">Snapdragon 8s Gen 3 (SM8635)</span>
+        <h2>Device Specs</h2>
+        
+        <div class="m3-specs-grid">
+          <div class="m3-spec-card">
+            <div class="m3-spec-icon processor">
+              <i class="fas fa-microchip"></i>
+            </div>
+            <div class="m3-spec-content">
+              <div class="m3-spec-label">SoC</div>
+              <div class="m3-spec-value">Snapdragon 8s Gen 3</div>
+              <div class="m3-spec-detail">(SM8635)</div>
+            </div>
+          </div>
+
+          <div class="m3-spec-card">
+            <div class="m3-spec-icon display">
+              <i class="fas fa-tv"></i>
+            </div>
+            <div class="m3-spec-content">
+              <div class="m3-spec-label">Display</div>
+              <div class="m3-spec-value">6.83" Swift AMOLED</div>
+              <div class="m3-spec-detail">144Hz</div>
+            </div>
+          </div>
+
+          <div class="m3-spec-card">
+            <div class="m3-spec-icon memory">
+              <i class="fas fa-memory"></i>
+            </div>
+            <div class="m3-spec-content">
+              <div class="m3-spec-label">RAM</div>
+              <div class="m3-spec-value">8GB/12GB</div>
+              <div class="m3-spec-detail">LPDDR5X</div>
+            </div>
+          </div>
+
+          <div class="m3-spec-card">
+            <div class="m3-spec-icon storage">
+              <i class="fas fa-hdd"></i>
+            </div>
+            <div class="m3-spec-content">
+              <div class="m3-spec-label">Storage</div>
+              <div class="m3-spec-value">256GB/512GB</div>
+              <div class="m3-spec-detail">UFS 3.1</div>
+            </div>
+          </div>
+
+          <div class="m3-spec-card">
+            <div class="m3-spec-icon battery">
+              <i class="fas fa-battery-full"></i>
+            </div>
+            <div class="m3-spec-content">
+              <div class="m3-spec-label">Battery</div>
+              <div class="m3-spec-value">5200 / 6800mAh</div>
+              <div class="m3-spec-detail">EU / Global</div>
+            </div>
+          </div>
+
+          <div class="m3-spec-card">
+            <div class="m3-spec-icon camera">
+              <i class="fas fa-camera"></i>
+            </div>
+            <div class="m3-spec-content">
+              <div class="m3-spec-label">Camera</div>
+              <div class="m3-spec-value">50MP + 8MP</div>
+              <div class="m3-spec-detail">Main + Ultrawide</div>
+            </div>
+          </div>
+
+          <div class="m3-spec-card">
+            <div class="m3-spec-icon launch">
+              <i class="fas fa-calendar"></i>
+            </div>
+            <div class="m3-spec-content">
+              <div class="m3-spec-label">Launch</div>
+              <div class="m3-spec-value">July 2025</div>
+              <div class="m3-spec-detail">OnePlus</div>
+            </div>
+          </div>
+
+          <div class="m3-spec-card">
+            <div class="m3-spec-icon android">
+              <i class="fab fa-android"></i>
+            </div>
+            <div class="m3-spec-content">
+              <div class="m3-spec-label">Android</div>
+              <div class="m3-spec-value">LineageOS 22.2</div>
+              <div class="m3-spec-detail">Android 15</div>
+            </div>
+          </div>
         </div>
-        <div class="spec-item">
-          <span class="spec-label">Display:</span>
-          <span class="spec-value">6.83 Swift AMOLED 144Hz</span>
+
+        <div class="warning-box">
+          <strong>⚠️ Warning:</strong> I am not responsible for bricked devices, lost data , lost jobs, dead integrity or wars. Proceed entirely at your own risk.
         </div>
-        <div class="spec-item">
-          <span class="spec-label">RAM:</span>
-          <span class="spec-value">8GB/12GB LPDDR5X</span>
+
+        <div class="installation-stepper">
+          <div class="stepper-header">
+            <div class="stepper-title">
+              <i class="fas fa-cogs"></i>
+              LineageOS Installation Guide
+            </div>
+            <div class="stepper-progress">
+              Step <span id="current-step">1</span> of <span id="total-steps">6</span>
+            </div>
+          </div>
+
+          <div class="stepper-content">
+            <div class="step-item active">
+              <h3>
+                <span class="step-number">1</span>
+                Prerequisites & Backup
+              </h3>
+              <ul>
+                <li><strong>Backup everything:</strong> Photos, contacts, apps , important files and everything else</li>
+                <li><strong>Battery:</strong> Ensure device is charged to at least 70%</li>
+                <li><strong>OxygenOS:</strong> It is recommended to use .501 (or august patch build)</li>
+              </ul>
+              <p><strong>⚠️ Warning:</strong> Installation will completely wipe all device data!</p>
+            </div>
+
+            <div class="step-item">
+              <h3>
+                <span class="step-number">2</span>
+                Enable Developer Options
+              </h3>
+              <ol>
+                <li>Go to <strong>Settings → About phone</strong></li>
+                <li>Tap <strong>"Build number"</strong> seven times rapidly</li>
+                <li>Enter your PIN/password when prompted</li>
+                <li>Navigate to <strong>Settings → System → Developer options</strong></li>
+                <li>Enable <strong>"USB debugging"</strong></li>
+                <li>Enable <strong>"OEM unlocking"</strong></li>
+              </ol>
+            </div>
+
+            <div class="step-item">
+              <h3>
+                <span class="step-number">3</span>
+                Unlock Bootloader
+              </h3>
+              <ol>
+                <li>Connect device to computer via USB</li>
+                <li>Open command prompt/terminal</li>
+                <li>Boot to fastboot mode:</li>
+              </ol>
+              <div class="code-block">adb reboot bootloader</div>
+              <ol start="4">
+                <li>Verify device is detected:</li>
+              </ol>
+              <div class="code-block">fastboot devices</div>
+              <ol start="5">
+                <li>Unlock bootloader (this wipes data):</li>
+              </ol>
+              <div class="code-block">fastboot flashing unlock</div>
+              <ol start="6">
+                <li>Confirm bootloader unlock on device using volume/power buttons</li>
+                <li>Device will automatically reboot and wipe data</li>
+              </ol>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-item">
+              <h3>
+                <span class="step-number">4</span>
+                Download All Files from the folder link
+              </h3>
+              <p><strong>Run commands:</strong></p>
+              <div class="code-block">fastboot flash init_boot init_boot.img
+fastboot flash boot boot.img
+fastboot flash vendor_boot vendor_boot.img
+fastboot flash recovery recovery.img
+fastboot -w
+fastboot reboot recovery</div>
+            </div>
+
+            <div class="step-item">
+              <h3>
+                <span class="step-number">5</span>
+                Flash Rom
+              </h3>
+              <p>After booting to recovery:</p>
+              <ol>
+                <li>Factory Reset</li>
+                <li>Apply update → Apply from ADB</li>
+                <li>Sideload LineageOS ROM:</li>
+              </ol>
+              <div class="code-block">adb sideload lineage-22.2-*.zip</div>
+              <p>If it says error 7</p>
+              <p>Reboot to fastboot and run</p>
+              <div class="code-block">fastboot wipe-super super_empty.img</div>
+              <p>and reboot to recovery and sideload.</p>
+            </div>
+
+            <div class="step-item">
+              <h3>
+                <span class="step-number">6</span>
+                Installation Complete
+              </h3>
+              <ol>
+                <li><strong>Reboot System:</strong> Select "Reboot system now" in recovery</li>
+                <li><strong>Updates:</strong> Check Settings → System → Updater for future updates</li>
+              </ol>
+              <p><strong>You're now running LineageOS 22.2 on your OnePlus Nord 5!</strong></p>
+              <p><strong>Pro Tips:</strong></p>
+              <ul>
+                <li>Enable 144Hz in Settings → Display → Peak refresh rate</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="stepper-controls">
+            <button class="stepper-btn" id="prevBtn">
+              <i class="fas fa-chevron-left"></i>
+              Previous
+            </button>
+            
+            <div class="step-indicator">
+              <div class="indicator-dot active"></div>
+              <div class="indicator-dot"></div>
+              <div class="indicator-dot"></div>
+              <div class="indicator-dot"></div>
+              <div class="indicator-dot"></div>
+              <div class="indicator-dot"></div>
+            </div>
+            
+            <button class="stepper-btn next" id="nextBtn">
+              Next
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
         </div>
-        <div class="spec-item">
-          <span class="spec-label">Storage:</span>
-          <span class="spec-value">256GB/512GB UFS 3.1</span>
-        </div>
+
+        <h2>Support Group</h2>
+        <ul>
+          <li><strong>Telegram:</strong> <a href="https://t.me/grepfox_chat" target="_blank">@grepfox_chat</a></li>
+        </ul>
       </div>
-      <div>
-        <div class="spec-item">
-          <span class="spec-label">Battery:</span>
-          <span class="spec-value">5200 (EU) / 6800mAh (Rest of the world)</span>
-        </div>
-        <div class="spec-item">
-          <span class="spec-label">Camera:</span>
-          <span class="spec-value">50MP main + 8MP ultrawide</span>
-        </div>
-        <div class="spec-item">
-          <span class="spec-label">Launch:</span>
-          <span class="spec-value">July 2025</span>
-        </div>
-        <div class="spec-item">
-          <span class="spec-label">Android:</span>
-          <span class="spec-value">LineageOS 22.2 (Android 15)</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="danger-warning">
-      <strong>⚠️ Warning:</strong> I am not responsible for bricked devices, lost data , lost jobs, dead integrity or wars.
-Proceed entirely at your own risk.
-</div>
-
-    <!-- Interactive Installation Steps -->
-    <section id="install-steps" style="margin:3rem 0;">
-      <div class="windows-steps-container">
-        <div class="steps-titlebar">
-          <span>LineageOS Installation Guide</span>
-        </div>
-        <div id="windows-step-content" class="step-content">
-          <!--  step rendered here -->
-        </div>
-        <div class="stepper-controls">
-          <button id="prevStepBtn" class="step-btn">Previous</button>
-          <div id="stepPager" class="step-pager"></div>
-          <button id="nextStepBtn" class="step-btn next-btn">Next</button>
-        </div>
-      </div>
-    </section>
-
-    <h2>Support Group</h2>
-    <ul>
-      <li><strong>Telegram:</strong> <a href="https://t.me/grepfox_chat" target="_blank">@grepfox_chat</a></li>
-    </ul>
-
+    </article>
   </main>
 
-  <!-- Footer -->
   <footer>
     <div class="footer-content">
       <div>© 2025 Grepfox. All rights reserved.</div>
     </div>
   </footer>
 
-  <!-- Installation Steps -->
+  <script src="/mode.js"></script>
   <script>
-    // Configure your installation steps here
-    const installSteps = [
-      {
-        title: "Prerequisites & Backup",
-        html: `
-          <h3>Prerequisites & Backup</h3>
-          <ul>
-            <li><strong>Backup everything:</strong> Photos, contacts, apps , important files and everything else</li>
-            <li><strong>Battery:</strong> Ensure device is charged to at least 70%</li>
-            <li><strong>OxygenOS:</strong> It is recommended to use .501 (or august patch build)</li>
-          </ul>
-          <p><strong>⚠️ Warning:</strong> Installation will completely wipe all device data!</p>
-        `
-      },
-      {
-        title: "Enable Developer Options",
-        html: `
-          <h3>Enable Developer Options</h3>
-          <ol>
-            <li>Go to <strong>Settings → About phone</strong></li>
-            <li>Tap <strong>"Build number"</strong> seven times rapidly</li>
-            <li>Enter your PIN/password when prompted</li>
-            <li>Navigate to <strong>Settings → System → Developer options</strong></li>
-            <li>Enable <strong>"USB debugging"</strong></li>
-            <li>Enable <strong>"OEM unlocking"</strong></li>
-          </ol>
-        `
-      },
-      {
-        title: "Unlock Bootloader",
-        html: `
-          <h3>Unlock Bootloader</h3>
-          <ol>
-            <li>Connect device to computer via USB</li>
-            <li>Open command prompt/terminal</li>
-            <li>Boot to fastboot mode:</li>
-          </ol>
-          <div class="code-block">adb reboot bootloader</div>
-          <ol start="4">
-            <li>Verify device is detected:</li>
-          </ol>
-          <div class="code-block">fastboot devices</div>
-          <ol start="5">
-            <li>Unlock bootloader (this wipes data):</li>
-          </ol>
-          <div class="code-block">fastboot flashing unlock</div>
-          <ol start="6">
-            <li>Confirm bootloader unlock on device using volume/power buttons</li>
-            <li>Device will automatically reboot and wipe data</li>
-          </ol>
-        `
-      },
-      {
-        title: "Download All Files from the folder link",
-        html: `
-          <h3>Download All Files from the folder link</h3>
-          <ul>
-          <p><strong>Run commands:</strong></p>
-          <li><code>fastboot flash init_boot init_boot.img</code></li>
-          <li><code>fastboot flash boot boot.img</code></li>
-          <li><code>fastboot flash vendor_boot vendor_boot.img</code></li>
-          <li><code>fastboot flash recovery recovery.img</code></li>
-          <li><code>fastboot -w</code></li>
-          <li><code>fastboot reboot recovery</code></li>
+    let currentStepIndex = 0;
+    const totalSteps = 6;
+    const steps = document.querySelectorAll('.step-item');
+    const indicators = document.querySelectorAll('.indicator-dot');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const currentStepSpan = document.getElementById('current-step');
+    const totalStepsSpan = document.getElementById('total-steps');
 
-          </ul>
-        `
-      },
-      {
-        title: "Flash Rom",
-        html: `
-          <h3>Flashing ROM</h3>
-          <div>After booting to recovery</div>
-          <ol start="1">
-            <li>Factory Reset</li>
-            <li>Apply update → Apply from ADB</li>
-            <li>Sideload LineageOS ROM:</li>
-          </ol>
-          <div class="code-block">adb sideload lineage-22.2-*.zip</div>
-          <div>If it says error 7</div>
-          <p>Reboot to fastboot and run</p>
-          <div class="code-block">fastboot wipe-super super_empty.img</div>  and reboot to recovery and sideload.
-
-        `
-      },
-      {
-        title: "Installation Complete",
-        html: `
-          <h3>Installation Complete!</h3>
-          <ol>
-            <li><strong>Reboot System:</strong> Select "Reboot system now" in recovery</li>
-            <li><strong>Updates:</strong> Check Settings → System → Updater for future updates</li>
-          </ol>
-          <p><strong>You're now running LineageOS 22.2 on your OnePlus Nord 5!</p>
-          <p><strong>Pro Tips:</strong></p>
-          <ul>
-            <li>Enable 144Hz in Settings → Display → Peak refresh rate</li>
-          </ul>
-        `
+    function updateStepper() {
+      steps.forEach(step => step.classList.remove('active'));
+      steps[currentStepIndex].classList.add('active');
+      
+      indicators.forEach((indicator, index) => {
+        indicator.classList.remove('active', 'completed');
+        if (index < currentStepIndex) {
+          indicator.classList.add('completed');
+        } else if (index === currentStepIndex) {
+          indicator.classList.add('active');
+        }
+      });
+      
+      currentStepSpan.textContent = currentStepIndex + 1;
+      
+      prevBtn.disabled = currentStepIndex === 0;
+      if (currentStepIndex === totalSteps - 1) {
+        nextBtn.innerHTML = '<i class="fas fa-check"></i> Complete';
+      } else {
+        nextBtn.innerHTML = 'Next <i class="fas fa-chevron-right"></i>';
       }
-    ];
-
-    let currentStep = 0;
-    const stepContent = document.getElementById('windows-step-content');
-    const prevBtn = document.getElementById('prevStepBtn');
-    const nextBtn = document.getElementById('nextStepBtn');
-    const pager = document.getElementById('stepPager');
-
-    function renderStep(idx) {
-      const step = installSteps[idx];
-      stepContent.innerHTML = step.html;
-      
-      prevBtn.disabled = idx === 0;
-      nextBtn.textContent = (idx === installSteps.length - 1) ? "Finish" : "Next";
-      
-      pager.textContent = `Step ${idx + 1} of ${installSteps.length}`;
     }
 
-    prevBtn.onclick = () => {
-      if (currentStep > 0) {
-        currentStep--;
-        renderStep(currentStep);
+    prevBtn.addEventListener('click', () => {
+      if (currentStepIndex > 0) {
+        currentStepIndex--;
+        updateStepper();
       }
-    };
-
-    nextBtn.onclick = () => {
-      if (currentStep < installSteps.length - 1) {
-        currentStep++;
-        renderStep(currentStep);
-      } else {
-        alert('Enjoy LineageOS on your OnePlus Nord 5!');
-      }
-    };
-
-    // Initialize first step
-    document.addEventListener('DOMContentLoaded', () => {
-      renderStep(currentStep);
     });
-  </script>
 
-<script src="/mode.js"></script>
+    nextBtn.addEventListener('click', () => {
+      if (currentStepIndex < totalSteps - 1) {
+        currentStepIndex++;
+        updateStepper();
+      } else {
+        alert('🎉 Installation complete! Enjoy LineageOS 22.2 on your OnePlus Nord 5!');
+      }
+    });
+
+    totalStepsSpan.textContent = totalSteps;
+    updateStepper();
+  </script>
 </body>
 </html>

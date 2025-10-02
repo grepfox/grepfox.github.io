@@ -1,108 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blog | Grepfox</title>
-      <script async src="https://scripts.withcabin.com/hello.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Inter:400,700|Poppins:400,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
-  <style>
-.blog-grid {
-  display: grid;
-  gap: 2rem;
-  padding: 3rem 6vw;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-}
-
-@media (min-width: 1024px) {
-  .blog-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-
-    .blog-card .card-img {
-      height: 180px;
-      object-fit: cover;
-    }
-
-    .blog-meta {
-      font-size: 0.9rem;
-      color: #888;
-      margin-bottom: 0.7rem;
-    }
-
-    .read-more {
-      margin-top: 1rem;
-      display: inline-block;
-      font-weight: 500;
-      font-size: 0.95rem;
-      color: var(--primary);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .read-more:hover {
-      color: var(--accent);
-    }
-
-    /* Dark mode overrides */
-    :root[data-theme='dark'] .blog-meta {
-      color: #aaa;
-    }
-  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script async src="https://scripts.withcabin.com/hello.js"></script>
 </head>
 <body>
+  <!-- Header -->
   <header class="site-header">
     <div class="logo">Grepfox</div>
     <nav>
       <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="downloads.html">Downloads</a></li>
         <li><a href="blog.html" class="active">Blog</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
-    <button id="toggle-theme" title="Toggle dark mode"
-      style="font-size: 1.3rem; margin-left: 1rem; background:none; border:none; cursor: pointer;">🌙</button>
+    <button id="toggle-theme" title="Toggle dark mode">🌙</button>
   </header>
 
   <main>
-<section class="blog-grid">
+    <section class="blog-header">
+      <h1>Blog</h1>
+      <p>Latest articles and guides</p>
+    </section>
 
-  <a href="blog-faq.html" class="card blog-card">
-    <img src="https://cdn.prod.website-files.com/659415b46df8ea43c3877776/65b7c35ba2496833f61a9789_frequently-asked-questions.jpeg" alt="FAQ Image" class="card-img">
-    <div class="card-body">
-      <p class="blog-meta">Jul 2025 • Info</p>
-      <h2 class="card-title">Frequently Asked Questions</h2>
-      <p class="card-desc">This post contains answers to frequently asked questions so you won't need to go anywhere else.</p>
-      <span class="read-more">Read more →</span>
-    </div>
-  </a>
+    <section class="blog-grid">
+      <article class="blog-card">
+        <div class="blog-image">
+          <img src="https://cdn.prod.website-files.com/659415b46df8ea43c3877776/65b7c35ba2496833f61a9789_frequently-asked-questions.jpeg" alt="FAQ">
+        </div>
+        <div class="blog-content">
+          <div class="blog-meta">
+            <span class="blog-date">Jul 2025</span>
+            <span class="blog-category">Info</span>
+          </div>
+          <h2>Frequently Asked Questions</h2>
+          <p>This post contains answers to frequently asked questions so you won't need to go anywhere else.</p>
+          <a href="blog-faq.html" class="read-more">
+            Read more <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </article>
 
-  <a href="yaap-changelogs.html" class="card blog-card">
-    <img src="https://amoeboids.com/wp-content/uploads/2020/02/Pointers-for-making-a-good-changelog.webp" alt="YAAP Update" class="card-img">
-    <div class="card-body">
-      <p class="blog-meta">Jul 2025 • Rom</p>
-      <h2 class="card-title">YAAP For Poco X3 Pro</h2>
-      <p class="card-desc">Click here to see info about YAAP for vayu.</p>
-      <span class="read-more">Read more →</span>
-    </div>
-  </a>
+      <article class="blog-card">
+        <div class="blog-image">
+          <img src="https://amoeboids.com/wp-content/uploads/2020/02/Pointers-for-making-a-good-changelog.webp" alt="YAAP">
+        </div>
+        <div class="blog-content">
+          <div class="blog-meta">
+            <span class="blog-date">Jul 2025</span>
+            <span class="blog-category">ROM</span>
+          </div>
+          <h2>YAAP For Poco X3 Pro</h2>
+          <p>Click here to see info about YAAP for vayu.</p>
+          <a href="yaap-changelogs.html" class="read-more">
+            Read more <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </article>
 
-    <a href="lexus-22.html" class="card blog-card">
-    <img src="https://amoeboids.com/wp-content/uploads/2020/02/Pointers-for-making-a-good-changelog.webp" alt="YAAP Update" class="card-img">
-    <div class="card-body">
-      <p class="blog-meta">Sept 2025 • Rom</p>
-      <h2 class="card-title">LineageOS For OnePlus Nord 5</h2>
-      <p class="card-desc">Click here to see info about LineageOS for Nord 5.</p>
-      <span class="read-more">Read more →</span>
-    </div>
-  </a>
-
-</section>
-
+      <article class="blog-card">
+        <div class="blog-image">
+          <img src="https://amoeboids.com/wp-content/uploads/2020/02/Pointers-for-making-a-good-changelog.webp" alt="LineageOS">
+        </div>
+        <div class="blog-content">
+          <div class="blog-meta">
+            <span class="blog-date">Sept 2025</span>
+            <span class="blog-category">ROM</span>
+          </div>
+          <h2>LineageOS For OnePlus Nord 5</h2>
+          <p>Click here to see info about LineageOS for Nord 5.</p>
+          <a href="lexus-22.html" class="read-more">
+            Read more <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </article>
+    </section>
   </main>
 
   <footer>
@@ -111,30 +89,6 @@
     </div>
   </footer>
 
-  <!-- Dark Mode Toggle Script -->
-  <script>
-    const toggleBtn = document.getElementById('toggle-theme');
-    const root = document.documentElement;
-
-    function setTheme(mode) {
-      root.setAttribute('data-theme', mode);
-      localStorage.setItem('theme', mode);
-      if (toggleBtn) toggleBtn.textContent = mode === 'dark' ? '🌞' : '🌙';
-    }
-
-    if (toggleBtn) {
-      toggleBtn.addEventListener('click', () => {
-        const isDark = root.getAttribute('data-theme') === 'dark';
-        setTheme(isDark ? 'light' : 'dark');
-      });
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      const saved = localStorage.getItem('theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const defaultMode = saved || (prefersDark ? 'dark' : 'light');
-      setTheme(defaultMode);
-    });
-  </script>
+  <script src="mode.js"></script>
 </body>
 </html>
