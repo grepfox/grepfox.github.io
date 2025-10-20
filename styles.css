@@ -97,22 +97,36 @@ inset 0 1px 0 rgba(255, 255, 255, 0.1),
 inset 0 -1px 0 rgba(255, 255, 255, 0.02);
 }
 
+
 .logo {
-font-size: 1.5rem;
-font-weight: 700;
-letter-spacing: -0.5px;
-position: relative;
-padding: 0.75rem 1.25rem;
-border-radius: 16px;
-background: linear-gradient(45deg, #ff0080, #ff8000, #80ff00, #00ff80, #0080ff, #8000ff, #ff0080);
-background-size: 400% 400%;
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-background-clip: text;
-animation: rgbGlow 3s ease-in-out infinite, pulse 3s ease-in-out infinite;
-cursor: pointer;
-transition: all 0.3s ease;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  position: relative;
+  color: var(--text-dark);
+  display: inline-block;
+  cursor: pointer;
+  background: none;
+  transition: color 0.3s ease;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: var(--text-dark);
+  background-clip: text;
 }
+.logo:hover {
+  background: linear-gradient(90deg, #ff0080 0%, #ff8000 20%, #80ff00 40%, #00ff80 60%, #0080ff 80%, #8000ff 100%);
+  background-size: 200% 100%;
+  background-position: left;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  animation: rgbTextSweep 1s linear 1;
+}
+@keyframes rgbTextSweep {
+  0% { background-position: left; }
+  100% { background-position: right; }
+}
+
 
 .logo::before {
 content: '';
@@ -911,10 +925,36 @@ padding: 1rem;
 font-size: 1.75rem;
 }
 
+
 .logo {
-font-size: 1.25rem;
-padding: 0.5rem 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  position: relative;
+  color: var(--text-dark);
+  display: inline-block;
+  cursor: pointer;
+  background: none;
+  transition: color 0.3s ease;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: var(--text-dark);
+  background-clip: text;
 }
+.logo:hover {
+  background: linear-gradient(90deg, #ff0080 0%, #ff8000 20%, #80ff00 40%, #00ff80 60%, #0080ff 80%, #8000ff 100%);
+  background-size: 200% 100%;
+  background-position: left;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  animation: rgbTextSweep 1s linear 1;
+}
+@keyframes rgbTextSweep {
+  0% { background-position: left; }
+  100% { background-position: right; }
+}
+
 
 #toggle-theme {
 width: 40px;
