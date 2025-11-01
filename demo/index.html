@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Android UI Showcase</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Font: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@0.378.0/dist/umd/lucide.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* bg-gray-900 */
+        }
+        .text-shadow {
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+        }
+        .phone-content::-webkit-scrollbar { width: 4px; }
+        .phone-content::-webkit-scrollbar-thumb { background-color: rgba(255, 255, 255, 0.3); border-radius: 4px; }
+        .phone-content::-webkit-scrollbar-track { background: transparent; }
+
+        /* ----- Animation Styles ----- */
+
+        /* App Window Styling - New "Scale from Center" (Pixel-like) Animation */
+        .app-window {
+            position: absolute;
+            inset: 0;
+            z-index: 100;
+            overflow: hidden;
+            border-radius: 2.75rem; /* Matches phone screen */
+            /* Start state */
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+        }
+        .app-window.open {
+            /* End state */
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+
+        /* Home Screen Content (Icons/Widgets) */
+        .home-screen-content {
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        
+        /* State when an app is open - Home screen zooms *in* */
+        .home-screen.app-is-open .home-screen-content {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(1.1);
+        }
+
+        /* Quick Settings Panel */
+        .quick-settings-panel {
+            /* Now controlled by JS for swipe */
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 200;
+        }
+
+        /* App Content (fades in slightly after window) */
+        .app-window-content {
+            opacity: 0;
+            transition: opacity 0.2s 0.1s ease-in; /* Fades in after 0.1s delay */
+        }
+        .app-window.open .app-window-content {
+            opacity: 1;
+        }
+        
+        /* Custom thick slider */
+        input[type="range"].thick-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 99px;
+            outline: none;
+        }
+        input[type="range"].thick-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        input[type="range"].thick-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+
+    <!-- Phone Bezel/Frame -->
+    <div class="w-full max-w-[410px] h-[860px] bg-black rounded-[3.5rem] border-[10px] border-black shadow-2xl overflow-hidden">
+        
+        <!-- Phone Screen -->
+        <div id="phone-screen" class="w-full h-full bg-gray-800 rounded-[3rem] overflow-hidden relative home-screen">
+            
+            <!-- 1. Wallpaper -->
+            <!-- New colorful wallpaper -->
+            <img src="https://source.unsplash.com/random/410x860?abstract,colorful,gradient&sig=100" 
+                 alt="Abstract Wallpaper"
+                 class="absolute inset-0 z-0 w-full h-full object-cover">
+            <!-- Wallpaper overlay for better readability -->
+            <div class="absolute inset-0 z-10 bg-black/10"></div>
+            
+            <!-- 2. Screen Content (Widgets, Icons) -->
+            <div class="absolute inset-0 z-30 pt-12 pb-24 overflow-y-auto phone-content home-screen-content">
+                <div class="p-5 space-y-5">
+
+                    <!-- Widget 1: Clock -->
+                    <div class="bg-black/25 backdrop-blur-lg rounded-3xl p-6 text-white text-shadow">
+                        <h1 id="widget-time" class="text-7xl font-bold tracking-tight">9:41</h1>
+                        <p id="widget-date" class="text-lg font-medium opacity-80">Tuesday, Nov 2</p>
+                    </div>
+
+                    <!-- Widget 2: Music Player -->
+                    <div class="bg-black/25 backdrop-blur-lg rounded-3xl p-5 text-white text-shadow flex items-center space-x-4">
+                        <div class="w-20 h-20 bg-gradient-to-b from-purple-400 to-pink-500 rounded-2xl flex-shrink-0"></div>
+                        <div class="flex-grow min-w-0">
+                            <h3 class="text-lg font-semibold truncate">Daydreaming</h3>
+                            <p class="text-sm opacity-80 truncate">Lost Sky</p>
+                            <div class="flex items-center space-x-5 mt-2">
+                                <i data-lucide="skip-back" class="w-5 h-5 opacity-80"></i>
+                                <i data-lucide="play" class="w-6 h-6" fill="currentColor"></i>
+                                <i data-lucide="skip-forward" class="w-5 h-5 opacity-80"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- App Icon Grid -->
+                    <div class="grid grid-cols-4 gap-y-6 gap-x-4 pt-4">
+                        <!-- App 1: Calendar -->
+                        <a href="javascript:void(0)" class="flex flex-col items-center space-y-2 app-icon" 
+                           onclick="openApp(event, 'Calendar', '#ffffff', '#dc2626')">
+                            <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-red-500 flex-col shadow-md">
+                                <span class="text-xs font-bold uppercase">NOV</span>
+                                <span class="text-3xl font-bold -mt-1">2</span>
+                            </div>
+                            <span class="text-xs text-white text-shadow font-medium">Calendar</span>
+                        </a>
+                        
+                        <!-- App 2: Photos -->
+                        <a href="javascript:void(0)" class="flex flex-col items-center space-y-2 app-icon" 
+                           onclick="openApp(event, 'Photos', '#38bdf8', '#ffffff')">
+                            <div class="w-16 h-16 bg-gradient-to-br from-blue-400 via-teal-400 to-green-500 rounded-2xl flex items-center justify-center text-white shadow-md">
+                                <i data-lucide="image" class="w-8 h-8"></i>
+                            </div>
+                            <span class="text-xs text-white text-shadow font-medium">Photos</span>
+                        </a>
+                        
+                        <!-- App 3: Mail -->
+                        <a href="javascript:void(0)" class="flex flex-col items-center space-y-2 app-icon" 
+                           onclick="openApp(event, 'Mail', '#ffffff', '#3b82f6')">
+                            <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-blue-500 shadow-md">
+                                <i data-lucide="mail" class="w-8 h-8"></i>
+                            </div>
+                            <span class="text-xs text-white text-shadow font-medium">Mail</span>
+                        </a>
+                        
+                        <!-- App 4: Settings -->
+                        <a href="javascript:void(0)" class="flex flex-col items-center space-y-2 app-icon" 
+                           onclick="openApp(event, 'Settings', '#d1d5db', '#374151')">
+                            <div class="w-16 h-16 bg-gray-300 rounded-2xl flex items-center justify-center text-gray-700 shadow-md">
+                                <i data-lucide="settings" class="w-8 h-8"></i>
+                            </div>
+                            <span class="text-xs text-white text-shadow font-medium">Settings</span>
+                        </a>
+
+                        <!-- App 5: Weather -->
+                        <a href="javascript:void(0)" class="flex flex-col items-center space-y-2 app-icon" 
+                           onclick="openApp(event, 'Weather', '#38bdf8', '#ffffff')">
+                            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-300 rounded-2xl flex items-center justify-center text-white shadow-md">
+                                <i data-lucide="cloud-sun" class="w-8 h-8"></i>
+                            </div>
+                            <span class="text-xs text-white text-shadow font-medium">Weather</span>
+                        </a>
+
+                        <!-- App 6: Maps -->
+                        <a href="javascript:void(0)" class="flex flex-col items-center space-y-2 app-icon" 
+                           onclick="openApp(event, 'Maps', '#ffffff', '#16a34a')">
+                            <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-green-600 shadow-md">
+                                <i data-lucide="map-pin" class="w-8 h-8"></i>
+                            </div>
+                            <span class="text-xs text-white text-shadow font-medium">Maps</span>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Status Bar (Top) -->
+            <!-- Removed onclick, swipe is now handled by JS on phone-screen -->
+            <div id="status-bar" class="absolute top-0 left-0 right-0 h-11 px-5 flex justify-between items-center z-50">
+                <!-- Time -->
+                <span id="status-time" class="text-sm font-semibold text-white text-shadow">9:41</span>
+                
+                <!-- Punch-Hole Camera -->
+                <div class="absolute left-1/2 -translate-x-1/2 top-3 w-3 h-3 bg-black rounded-full border-2 border-gray-800"></div>
+
+                <!-- Icons: Signal, WiFi, Battery -->
+                <div class="flex items-center space-x-1.5 text-white text-shadow">
+                    <i data-lucide="signal" class="w-4 h-4" fill="currentColor"></i>
+                    <i data-lucide="wifi" class="w-4 h-4"></i>
+                    <i data-lucide="battery" class="w-5 h-5"></i>
+                </div>
+            </div>
+
+            <!-- 4. Dock (Bottom) -->
+            <div class="absolute bottom-4 left-4 right-4 h-20 z-40 home-screen-content">
+                <div class="w-full h-full bg-black/30 backdrop-blur-lg rounded-3xl flex items-center justify-evenly px-4">
+                    
+                    <a href="javascript:void(0)" class="p-3 bg-green-500 rounded-full app-icon"
+                       onclick="openApp(event, 'Phone', '#22c55e', '#ffffff')">
+                        <i data-lucide="phone" class="w-6 h-6 text-white"></i>
+                    </a>
+                    
+                    <a href="javascript:void(0)" class="p-3 bg-blue-500 rounded-full app-icon"
+                       onclick="openApp(event, 'Messages', '#3b82f6', '#ffffff')">
+                        <i data-lucide="message-square" class="w-6 h-6 text-white"></i>
+                    </a>
+
+                    <a href="javascript:void(0)" class="p-3 bg-gray-200 rounded-full app-icon"
+                       onclick="openApp(event, 'Browser', '#e5e7eb', '#111827')">
+                        <i data-lucide="globe" class="w-6 h-6 text-black"></i>
+                    </a>
+                    
+                    <a href="javascript:void(0)" class="p-3 bg-gray-700 rounded-full app-icon"
+                       onclick="openApp(event, 'Camera', '#374151', '#ffffff')">
+                        <i data-lucide="camera" class="w-6 h-6 text-white"></i>
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- Home Bar -->
+            <div class="absolute bottom-2.5 left-1/2 -translate-x-1/2 w-32 h-1.5 bg-white/70 rounded-full z-50"></div>
+
+            <!-- App Container (for opening apps) -->
+            <div id="app-container" class="absolute inset-0 z-[100] pointer-events-none"></div>
+
+            <!-- Quick Settings Panel -->
+            <div id="quick-settings-panel" class="quick-settings-panel absolute inset-0 bg-black/50 backdrop-blur-2xl p-5 pt-12 rounded-b-[3rem] -translate-y-full" style="transform: translateY(-100%);">
+                <!-- Close Button (now just an indicator, swipe up works) -->
+                <div class="absolute top-4 right-5">
+                    <button onclick="closeQuickSettings(event)" class="p-2 bg-white/20 rounded-full text-white">
+                        <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                    </button>
+                </div>
+
+                <!-- NEW: Date and Time in QS -->
+                <div class="flex items-center space-x-4 mb-6">
+                    <div>
+                        <p id="qs-time" class="text-4xl font-bold text-white">9:41</p>
+                        <p id="qs-date" class="text-md text-white/80">Nov 2</p>
+                    </div>
+                </div>
+                
+                <!-- Toggles - Redesigned to be more Android-like -->
+                <div class="grid grid-cols-4 gap-3">
+                    <!-- Toggle 1: Wi-Fi -->
+                    <div class="flex flex-col items-center p-2 bg-blue-500 rounded-2xl space-y-1 text-white">
+                        <i data-lucide="wifi" class="w-6 h-6"></i>
+                        <span class="text-xs font-medium">Wi-Fi</span>
+                    </div>
+                    <!-- Toggle 2: Bluetooth -->
+                    <div class="flex flex-col items-center p-2 bg-blue-500 rounded-2xl space-y-1 text-white">
+                        <i data-lucide="bluetooth" class="w-6 h-6"></i>
+                        <span class="text-xs font-medium">Bluetooth</span>
+                    </div>
+                    <!-- Toggle 3: DND -->
+                    <div class="flex flex-col items-center p-2 bg-white/20 rounded-2xl space-y-1 text-white">
+                        <i data-lucide="moon" class="w-6 h-6"></i>
+                        <span class="text-xs font-medium">DND</span>
+                    </div>
+                    <!-- Toggle 4: Flashlight -->
+                    <div class="flex flex-col items-center p-2 bg-white/20 rounded-2xl space-y-1 text-white">
+                        <i data-lucide="flashlight" class="w-6 h-6"></i>
+                        <span class="text-xs font-medium">Flashlight</span>
+                    </div>
+                    <!-- Toggle 5: Airplane -->
+                    <div class="flex flex-col items-center p-2 bg-white/20 rounded-2xl space-y-1 text-white">
+                        <i data-lucide="plane" class="w-6 h-6"></i>
+                        <span class="text-xs font-medium">Airplane</span>
+                    </div>
+                    <!-- Toggle 6: Location -->
+                    <div class="flex flex-col items-center p-2 bg-white/20 rounded-2xl space-y-1 text-white">
+                        <i data-lucide="map-pin" class="w-6 h-6"></i>
+                        <span class="text-xs font-medium">Location</span>
+                    </div>
+                    <!-- Toggle 7: Auto-rotate -->
+                    <div class="flex flex-col items-center p-2 bg-white/20 rounded-2xl space-y-1 text-white">
+                        <i data-lucide="screen-share" class="w-6 h-6"></i>
+                        <span class="text-xs font-medium">Rotate</span>
+                    </div>
+                    <!-- Toggle 8: Battery Saver -->
+                    <div class="flex flex-col items-center p-2 bg-white/20 rounded-2xl space-y-1 text-white">
+                        <i data-lucide="battery-charging" class="w-6 h-6"></i>
+                        <span class="text-xs font-medium">Saver</span>
+                    </div>
+                </div>
+
+                <!-- Sliders - Redesigned -->
+                <div class="space-y-4 mt-8">
+                    <!-- Brightness -->
+                    <div class="flex items-center space-x-3">
+                        <i data-lucide="sun" class="w-5 h-5 text-white/70"></i>
+                        <input type="range" class="thick-slider">
+                    </div>
+                    <!-- Volume -->
+                    <div class="flex items-center space-x-3">
+                        <i data-lucide="volume-2" class="w-5 h-5 text-white/70"></i>
+                        <input type="range" class="thick-slider">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const phoneScreen = document.getElementById('phone-screen');
+        const appContainer = document.getElementById('app-container');
+        const quickSettingsPanel = document.getElementById('quick-settings-panel');
+        const statusBar = document.getElementById('status-bar');
+
+        /* ----- TIME SCRIPT ----- */
+        function updateTime() {
+            const now = new Date();
+            const statusTime = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: false });
+            const widgetTime = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }).replace(' AM', '').replace(' PM', '');
+            const widgetDate = now.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
+
+            const qsTime = statusTime;
+            const qsDate = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            
+            document.getElementById('status-time').textContent = statusTime;
+            document.getElementById('widget-time').textContent = widgetTime;
+            document.getElementById('widget-date').textContent = widgetDate;
+            document.getElementById('qs-time').textContent = qsTime;
+            document.getElementById('qs-date').textContent = qsDate;
+        }
+
+        /* ----- QUICK SETTINGS SWIPE SCRIPT ----- */
+        let isSwiping = false;
+        let swipeStartY = 0;
+        let swipeCurrentY = 0;
+        let qsIsOpen = false;
+        const statusBarHeight = 44; // Approx height of status bar in pixels
+
+        function getEventY(e) {
+            return e.touches ? e.touches[0].clientY : e.clientY;
+        }
+
+        function onSwipeStart(e) {
+            const y = getEventY(e);
+            // Only start swipe if it's from the status bar area
+            if (y - phoneScreen.getBoundingClientRect().top <= statusBarHeight) {
+                isSwiping = true;
+                swipeStartY = y;
+                quickSettingsPanel.style.transition = 'none'; // Allow 1:1 drag
+            }
+        }
+
+        function onSwipeMove(e) {
+            if (!isSwiping) return;
+
+            swipeCurrentY = getEventY(e);
+            let deltaY = swipeCurrentY - swipeStartY;
+
+            if (qsIsOpen) { // If panel is open, drag up
+                deltaY = Math.min(0, deltaY); // Can only drag up
+                const newY = Math.max(-quickSettingsPanel.offsetHeight, deltaY);
+                if (deltaY < 0) {
+                     quickSettingsPanel.style.transform = `translateY(${newY}px)`;
+                }
+            } else { // If panel is closed, drag down
+                deltaY = Math.max(0, deltaY); // Can only drag down
+                const newY = Math.min(0, -quickSettingsPanel.offsetHeight + deltaY);
+                quickSettingsPanel.style.transform = `translateY(${newY}px)`;
+            }
+        }
+
+        function onSwipeEnd(e) {
+            if (!isSwiping) return;
+            isSwiping = false;
+            quickSettingsPanel.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+            
+            const deltaY = swipeCurrentY - swipeStartY;
+            const openThreshold = quickSettingsPanel.offsetHeight / 3;
+
+            if (qsIsOpen) {
+                if (deltaY < -openThreshold / 2) {
+                    closeQuickSettings(); // Snap closed
+                } else {
+                    openQuickSettings(); // Snap back open
+                }
+            } else {
+                if (deltaY > openThreshold) {
+                    openQuickSettings(); // Snap open
+                } else {
+                    closeQuickSettings(); // Snap back closed
+                }
+            }
+        }
+
+        function openQuickSettings() {
+            quickSettingsPanel.style.transform = 'translateY(0%)';
+            qsIsOpen = true;
+        }
+
+        function closeQuickSettings(e) {
+            if (e) e.stopPropagation();
+            quickSettingsPanel.style.transform = 'translateY(-100%)';
+            qsIsOpen = false;
+        }
+        
+        // Add listeners to the phone screen
+        phoneScreen.addEventListener('touchstart', onSwipeStart, { passive: true });
+        phoneScreen.addEventListener('touchmove', onSwipeMove, { passive: true });
+        phoneScreen.addEventListener('touchend', onSwipeEnd);
+        phoneScreen.addEventListener('mousedown', onSwipeStart);
+        phoneScreen.addEventListener('mousemove', onSwipeMove);
+        phoneScreen.addEventListener('mouseup', onSwipeEnd);
+        phoneScreen.addEventListener('mouseleave', onSwipeEnd); // End swipe if mouse leaves
+
+        /* ----- APP ANIMATION SCRIPT ----- */
+        function openApp(event, appName, appColor, textColor) {
+            event.preventDefault();
+            event.stopPropagation();
+            
+            // 1. Create App Window
+            const appWindow = document.createElement('div');
+            appWindow.className = 'app-window';
+            appWindow.style.backgroundColor = appColor;
+            appWindow.style.color = textColor;
+
+            // 2. Create App Content
+            appWindow.innerHTML = `
+                <div class="app-window-content w-full h-full flex flex-col p-4 pt-12">
+                    <header class="flex justify-between items-center mb-4 flex-shrink-0">
+                        <h1 class="text-2xl font-bold">${appName}</h1>
+                        <button class="close-app-btn p-2 bg-black/10 rounded-full" style="color: ${textColor}">
+                            <i data-lucide="x" class="w-5 h-5"></i>
+                        </button>
+                    </header>
+                    <main class="flex-grow overflow-y-auto">
+                        <p>Welcome to the ${appName} app!</p>
+                        <!-- Placeholder content -->
+                        <div class="mt-4 space-y-2">
+                            ${Array(10).fill().map((_, i) => `<div class="p-4 rounded-lg bg-black/10">List Item ${i + 1}</div>`).join('')}
+                        </div>
+                    </main>
+                </div>
+            `;
+            
+            // 3. Append to DOM
+            appContainer.appendChild(appWindow);
+            
+            // 4. Add close event listener to button
+            appWindow.querySelector('.close-app-btn').addEventListener('click', (e) => closeApp(e, appWindow));
+            
+            // 5. NEW: Add swipe-up-to-close gesture
+            let appSwipeStartY = 0;
+            let appSwipeDeltaY = 0;
+            appWindow.addEventListener('touchstart', (e) => {
+                appSwipeStartY = e.touches[0].clientY;
+            }, { passive: true });
+            
+            appWindow.addEventListener('touchmove', (e) => {
+                appSwipeDeltaY = e.touches[0].clientY - appSwipeStartY;
+            }, { passive: true });
+
+            appWindow.addEventListener('touchend', (e) => {
+                if (appSwipeDeltaY < -100) { // If swiped up by > 100px
+                    closeApp(null, appWindow);
+                }
+                appSwipeStartY = 0;
+                appSwipeDeltaY = 0;
+            });
+            
+            // 6. Render icons
+            lucide.createIcons();
+
+            // 7. Animate In
+            requestAnimationFrame(() => {
+                // Add 'open' class to trigger CSS transition
+                appWindow.classList.add('open');
+            });
+
+            // 8. Hide Home Screen
+            phoneScreen.classList.add('app-is-open');
+        }
+
+        function closeApp(event, appWindow) {
+            if (event) event.stopPropagation();
+            if (!appWindow) return;
+
+            // 1. Animate Out
+            appWindow.classList.remove('open');
+
+            // 2. Show Home Screen
+            phoneScreen.classList.remove('app-is-open');
+
+            // 3. Clean up DOM after animation
+            appWindow.addEventListener('transitionend', () => {
+                appWindow.remove();
+            }, { once: true });
+        }
+
+        // Initial setup
+        window.onload = () => {
+            updateTime();
+            setInterval(updateTime, 1000);
+            lucide.createIcons();
+        };
+    </script>
+
+</body>
+</html>
+
