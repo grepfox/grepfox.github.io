@@ -27,14 +27,14 @@
   <main>
     <article class="blog-post">
       <header class="post-header">
-        <div class="post-meta">Published: September 18, 2025 • LineageOS Guide</div>
-        <h1 class="post-title">LineageOS 22.2 Unofficial for OnePlus Nord 5 ("lexus")</h1>
+        <div class="post-meta">Published: September 18, 2025 &bull; LineageOS</div>
+        <h1 class="post-title">LineageOS 23.0 Unofficial for OnePlus Nord 5 ("lexus")</h1>
       </header>
 
       <div class="post-content">
         <div class="notice-box">
-          <strong>Download:</strong> <a href="https://www.dropbox.com/scl/fo/zlejdh2whm84xmhdxd31g/ALDwu285CyH0tTBZSSBpdWU?rlkey=xirddgornddrhzwpi3hj1e14p&st=9nrn8jkq&dl=0">LineageOS Downloads</a><br>
-          <strong>Changelog:</strong> <a href="https://github.com/derpbygrep/ota/blob/main/changelog.md">Here</a><br>
+          <strong>Download:</strong> <a href="https://www.dropbox.com/scl/fo/4h7lyao5zc30yfpy4ihn3/ALETdN7h9ec0vzmgPoJNDF8?rlkey=9vx6nm5wtrq2t372p0we6hebs&st=52jdm009&dl=0">Here</a><br>
+          <strong>Changelog:</strong> <a href="https://raw.githubusercontent.com/Oneplus-Nord5-development/ota/refs/heads/main/changelog.md">Here</a><br>
           <strong>Maintainer:</strong> grepfox (<a href="https://github.com/grepfox" target="_blank">@grepfox</a>)<br>
           <strong>Support Group:</strong> <a href="https://github.com/grepfox_chat" target="_blank">Here</a>
         </div>
@@ -125,14 +125,14 @@
             </div>
             <div class="m3-spec-content">
               <div class="m3-spec-label">Android</div>
-              <div class="m3-spec-value">LineageOS 22.2</div>
-              <div class="m3-spec-detail">Android 15</div>
+              <div class="m3-spec-value">LineageOS 23.0</div>
+              <div class="m3-spec-detail">Android 16</div>
             </div>
           </div>
         </div>
 
         <div class="warning-box">
-          <strong>⚠️ Warning:</strong> I am not responsible for bricked devices, lost data , lost jobs, dead integrity or wars. Proceed entirely at your own risk.
+          <strong><i class="fas fa-exclamation-triangle"></i> Warning:</strong> I am not responsible for bricked devices, lost data , lost jobs, dead integrity or wars. Proceed entirely at your own risk.
         </div>
 
         <div id="install-steps" class="installation-stepper">
@@ -157,7 +157,7 @@
                 <li><strong>Battery:</strong> Ensure device is charged to at least 70%</li>
                 <li><strong>OxygenOS:</strong> It is recommended to use .501 (or august patch build)</li>
               </ul>
-              <p><strong>⚠️ Warning:</strong> Installation will completely wipe all device data!</p>
+              <p><strong><i class="fas fa-exclamation-triangle"></i> Warning:</strong> Installation will completely wipe all device data!</p>
             </div>
 
             <div class="step-item">
@@ -166,10 +166,10 @@
                 Enable Developer Options
               </h3>
               <ol>
-                <li>Go to <strong>Settings → About phone</strong></li>
+                <li>Go to <strong>Settings &rarr; About phone</strong></li>
                 <li>Tap <strong>"Build number"</strong> seven times rapidly</li>
                 <li>Enter your PIN/password when prompted</li>
-                <li>Navigate to <strong>Settings → System → Developer options</strong></li>
+                <li>Navigate to <strong>Settings &rarr; System &rarr; Developer options</strong></li>
                 <li>Enable <strong>"USB debugging"</strong></li>
                 <li>Enable <strong>"OEM unlocking"</strong></li>
               </ol>
@@ -185,34 +185,53 @@
                 <li>Open command prompt/terminal</li>
                 <li>Boot to fastboot mode:</li>
               </ol>
-              <div class="code-block">adb reboot bootloader</div>
+              <div class="code-wrapper">
+                <button class="copy-btn" onclick="copyCode(this)">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+<div class="code-block">adb reboot bootloader</div>
+              </div>
               <ol start="4">
                 <li>Verify device is detected:</li>
               </ol>
-              <div class="code-block">fastboot devices</div>
+              <div class="code-wrapper">
+                <button class="copy-btn" onclick="copyCode(this)">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+<div class="code-block">fastboot devices</div>
+              </div>
               <ol start="5">
                 <li>Unlock bootloader (this wipes data):</li>
               </ol>
-              <div class="code-block">fastboot flashing unlock</div>
+              <div class="code-wrapper">
+                <button class="copy-btn" onclick="copyCode(this)">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+<div class="code-block">fastboot flashing unlock</div>
+              </div>
               <ol start="6">
                 <li>Confirm bootloader unlock on device using volume/power buttons</li>
                 <li>Device will automatically reboot and wipe data</li>
               </ol>
             </div>
 
-            <!-- Step 4 -->
             <div class="step-item">
               <h3>
                 <span class="step-number">4</span>
                 Download All Files from the folder link
               </h3>
               <p><strong>Run commands:</strong></p>
-              <div class="code-block">fastboot flash init_boot init_boot.img
+              <div class="code-wrapper">
+                <button class="copy-btn" onclick="copyCode(this)">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+<div class="code-block">fastboot flash init_boot init_boot.img
 fastboot flash boot boot.img
 fastboot flash vendor_boot vendor_boot.img
 fastboot flash recovery recovery.img
 fastboot -w
 fastboot reboot recovery</div>
+              </div>
             </div>
 
             <div class="step-item">
@@ -223,13 +242,23 @@ fastboot reboot recovery</div>
               <p>After booting to recovery:</p>
               <ol>
                 <li>Factory Reset</li>
-                <li>Apply update → Apply from ADB</li>
+                <li>Apply update &rarr; Apply from ADB</li>
                 <li>Sideload LineageOS ROM:</li>
               </ol>
-              <div class="code-block">adb sideload lineage-22.2-*.zip</div>
+              <div class="code-wrapper">
+                <button class="copy-btn" onclick="copyCode(this)">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+<div class="code-block">adb sideload lineage-23.0-*.zip</div>
+              </div>
               <p>If it says error 7</p>
               <p>Reboot to fastboot and run</p>
-              <div class="code-block">fastboot wipe-super super_empty.img</div>
+              <div class="code-wrapper">
+                <button class="copy-btn" onclick="copyCode(this)">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+<div class="code-block">fastboot wipe-super super_empty.img</div>
+              </div>
               <p>and reboot to recovery and sideload.</p>
             </div>
 
@@ -240,13 +269,10 @@ fastboot reboot recovery</div>
               </h3>
               <ol>
                 <li><strong>Reboot System:</strong> Select "Reboot system now" in recovery</li>
-                <li><strong>Updates:</strong> Check Settings → System → Updater for future updates</li>
+                <li><strong>Updates:</strong> Check Settings &rarr; System &rarr; Updater for future updates</li>
               </ol>
-              <p><strong>You're now running LineageOS 22.2 on your OnePlus Nord 5!</strong></p>
+              <p><strong>You're now running LineageOS 23.0 on your OnePlus Nord 5!</strong></p>
               <p><strong>Pro Tips:</strong></p>
-              <ul>
-                <li>Enable 144Hz in Settings → Display → Peak refresh rate</li>
-              </ul>
             </div>
           </div>
 
@@ -278,7 +304,7 @@ fastboot reboot recovery</div>
 
   <footer>
     <div class="footer-content">
-      <div>© 2025 Grepfox. All rights reserved.</div>
+      <div>&copy; 2025 Grepfox. All rights reserved.</div>
     </div>
   </footer>
 
@@ -328,12 +354,30 @@ fastboot reboot recovery</div>
         currentStepIndex++;
         updateStepper();
       } else {
-        alert('🎉 Installation complete! Enjoy LineageOS 22.2 on your OnePlus Nord 5!');
+        alert('\U0001f389 Installation complete! Enjoy LineageOS 23.0 on your OnePlus Nord 5!');
       }
     });
 
     totalStepsSpan.textContent = totalSteps;
     updateStepper();
+
+    function copyCode(btn) {
+      const codeBlock = btn.nextElementSibling;
+      const text = codeBlock.innerText;
+
+      navigator.clipboard.writeText(text).then(() => {
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        btn.style.color = '#4ade80';
+        
+        setTimeout(() => {
+          btn.innerHTML = '<i class="fas fa-copy"></i> Copy';
+          btn.style.color = '';
+        }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy:', err);
+      });
+    }
   </script>
 </body>
 </html>

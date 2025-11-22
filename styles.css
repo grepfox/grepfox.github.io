@@ -801,16 +801,45 @@ margin-bottom: 1rem;
 line-height: 1.6;
 }
 
+.code-wrapper {
+  position: relative;
+  margin: 1rem 0;
+}
+
 .code-block {
-background: #1e293b;
-color: #e2e8f0;
-padding: 1rem;
-border-radius: 8px;
-font-family: 'Monaco', 'Consolas', monospace;
-margin: 1rem 0;
-overflow-x: auto;
-border-left: 4px solid var(--accent);
-font-size: 0.9rem;
+  background: #1e293b;
+  color: #e2e8f0;
+  padding: 2.5rem 1rem 1rem 1rem;
+  border-radius: 8px;
+  font-family: 'Monaco', 'Consolas', monospace;
+  margin: 0;
+  overflow-x: auto;
+  border-left: 4px solid var(--accent);
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #94a3b8;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.copy-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
 }
 
 .stepper-controls {
