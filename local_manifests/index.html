@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Manifest Generator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600&display=swap');
+
+        :root {
+            /* Tokyo Night Storm Palette - High Contrast */
+            --bg-base: #1a1b26;
+            --bg-mantle: #16161e;
+            --bg-crust: #13131a;
+            --bg-translucent: rgba(26, 27, 38, 0.95);
+            
+            --text-main: #c0caf5;
+            --text-sub: #787c99;
+            --overlay: #565f89;
+            
+            /* Vibrant Accents */
+            --accent-blue: #7aa2f7;
+            --accent-lavender: #bb9af7;
+            --accent-pink: #ff007c;
+            --accent-red: #f7768e;
+            --accent-green: #9ece6a;
+            --accent-yellow: #e0af68;
+            --accent-cyan: #7dcfff;
+            
+            /* File Icon Colors */
+            --icon-shell: #89e051;
+            --icon-xml: #e37933;
+            
+            --border-col: rgba(122, 162, 247, 0.15);
+            --blur-strength: 8px;
+            --radius: 8px;
+            
+            --font-mono: 'JetBrains Mono', monospace;
+            --font-ui: 'Inter', sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            /* Batman / Gotham City Vibe Wallpaper */
+            background: #000000 url('https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?q=80&w=2560&auto=format&fit=crop') center/cover no-repeat fixed;
+            color: var(--text-main);
+            font-family: var(--font-ui);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            font-size: 13px;
+        }
+
+        /* "Window" Container */
+        .window-container {
+            width: 95vw;
+            height: 90vh;
+            background: var(--bg-translucent);
+            backdrop-filter: blur(var(--blur-strength));
+            -webkit-backdrop-filter: blur(var(--blur-strength));
+            border: 1px solid var(--border-col);
+            border-radius: var(--radius);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            display: flex;
+            overflow: hidden;
+            animation: popIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Activity Bar */
+        .activity-bar {
+            width: 50px;
+            background: var(--bg-crust);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 15px;
+            border-right: 1px solid var(--border-col);
+        }
+
+        .activity-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: 0.2s;
+            position: relative;
+        }
+
+        .activity-icon:hover { opacity: 0.9; color: var(--accent-blue); }
+        .activity-icon.active { opacity: 1; }
+        .activity-icon.active svg { fill: var(--accent-blue); }
+        .activity-icon.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            bottom: 10px;
+            width: 3px;
+            background: var(--accent-blue);
+            border-radius: 0 4px 4px 0;
+            box-shadow: 0 0 10px var(--accent-blue);
+        }
+
+        .activity-icon svg { width: 24px; height: 24px; fill: var(--text-sub); transition: fill 0.2s; }
+
+        /* Sidebar */
+        .sidebar {
+            width: 220px;
+            background: var(--bg-mantle);
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid var(--border-col);
+        }
+
+        .sidebar-header {
+            padding: 15px 20px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: var(--text-sub);
+            text-transform: uppercase;
+        }
+
+        .file-tree { padding: 5px 0; }
+        
+        .file-item {
+            padding: 6px 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            color: var(--text-sub);
+            transition: 0.2s;
+            border-left: 2px solid transparent;
+        }
+
+        .file-item:hover { background: rgba(122, 162, 247, 0.05); color: var(--text-main); }
+        .file-item.active { background: rgba(122, 162, 247, 0.1); color: var(--accent-blue); border-left-color: var(--accent-blue); }
+
+        /* File Icons */
+        .file-icon { width: 14px; height: 14px; fill: currentColor; }
+        .icon-shell { color: var(--icon-shell); }
+        .icon-xml { color: var(--icon-xml); }
+
+        /* Main Area */
+        .main-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: transparent;
+        }
+
+        /* Tabs */
+        .tabs-bar {
+            height: 38px;
+            background: var(--bg-crust);
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--border-col);
+            padding-right: 10px; /* Space for action area */
+        }
+
+        .tab {
+            padding: 0 20px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: var(--text-sub);
+            cursor: pointer;
+            border-right: 1px solid var(--border-col);
+            font-size: 12px;
+            min-width: 140px;
+            position: relative;
+        }
+
+        .tab:hover { background: var(--bg-base); }
+
+        .tab.active {
+            background: var(--bg-base);
+            color: var(--accent-blue);
+        }
+        .tab.active::after {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent-blue);
+        }
+
+        /* Action Area in Tabs */
+        .action-area {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Subtle Execute/Action Button */
+        .btn-action {
+            background: transparent;
+            border: 1px solid rgba(158, 206, 106, 0.3);
+            color: var(--accent-green);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-family: var(--font-ui);
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-action:hover {
+            background: rgba(158, 206, 106, 0.1);
+            border-color: var(--accent-green);
+            transform: translateY(-1px);
+        }
+        
+        .btn-action:active { transform: translateY(0); }
+        .btn-action svg { width: 10px; height: 10px; fill: currentColor; }
+
+        /* Copy Button Variant */
+        .btn-copy {
+            color: var(--accent-cyan);
+            border-color: rgba(125, 207, 255, 0.3);
+        }
+        .btn-copy:hover {
+            background: rgba(125, 207, 255, 0.1);
+            border-color: var(--accent-cyan);
+        }
+
+
+        /* Editor Area */
+        .editors-container {
+            flex: 1;
+            display: flex;
+            position: relative;
+            background: var(--bg-base);
+            overflow: hidden;
+        }
+
+        .editor-pane {
+            flex: 1; 
+            min-width: 100px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        /* Resizer Handle */
+        .resizer {
+            width: 4px;
+            cursor: col-resize;
+            background: var(--bg-crust);
+            border-left: 1px solid var(--border-col);
+            border-right: 1px solid var(--border-col);
+            transition: background 0.2s;
+            z-index: 10;
+        }
+
+        .resizer:hover, .resizer.resizing {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+        }
+
+        .gutter {
+            width: 45px;
+            padding-top: 15px;
+            text-align: right;
+            padding-right: 15px;
+            color: var(--overlay);
+            font-family: var(--font-mono);
+            font-size: 13px;
+            user-select: none;
+        }
+
+        .code-scroller {
+            flex: 1;
+            overflow: auto;
+            padding: 15px;
+        }
+
+        textarea.code-input, div.code-output {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-family: var(--font-mono);
+            font-size: 13px;
+            line-height: 1.6;
+            resize: none;
+            outline: none;
+            white-space: pre;
+            tab-size: 4;
+        }
+        
+        textarea.code-input::selection, div.code-output::selection, div.code-output span::selection {
+            background: rgba(122, 162, 247, 0.2);
+        }
+
+        /* Syntax Highlighting */
+        .hl-tag { color: var(--accent-red); }
+        .hl-attr { color: var(--accent-yellow); }
+        .hl-str { color: var(--accent-green); }
+        .hl-val { color: var(--accent-cyan); }
+        .hl-comment { color: var(--overlay); font-style: italic; }
+
+        /* Bottom Panel (Problems) */
+        .bottom-panel {
+            height: 30px;
+            background: var(--bg-mantle);
+            border-top: 1px solid var(--border-col);
+            display: flex;
+            flex-direction: column;
+            transition: height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .bottom-panel.open { height: 160px; }
+
+        .panel-header {
+            height: 30px;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            gap: 20px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .panel-tab { display: flex; align-items: center; gap: 6px; color: var(--text-sub); }
+        .panel-tab.active { color: var(--text-main); }
+        .badge { 
+            background: var(--overlay); color: #fff; 
+            padding: 0 6px; border-radius: 10px; font-size: 10px; font-weight: 700; 
+        }
+        .badge.err { background: var(--accent-red); color: #fff; }
+
+        .panel-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+            font-family: var(--font-mono);
+            background: var(--bg-base);
+        }
+
+        .problem-entry {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 2px;
+            padding: 6px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .problem-entry:hover { background: rgba(255,255,255,0.05); }
+        .problem-entry.error { color: var(--accent-red); }
+        .problem-entry.warn { color: var(--accent-yellow); }
+
+        /* Status Bar */
+        .status-bar {
+            height: 24px;
+            background: var(--accent-blue);
+            color: #15161e;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            justify-content: space-between;
+            font-weight: 600;
+            font-size: 11px;
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.99); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 10px; height: 10px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #2f334d; border-radius: 5px; border: 2px solid var(--bg-base); }
+        ::-webkit-scrollbar-thumb:hover { background: #414868; }
+
+    </style>
+</head>
+<body>
+
+<div class="window-container">
+    
+    <!-- Left Activity Bar -->
+    <div class="activity-bar">
+        <div class="activity-icon active">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v5h5v11H6z"/></svg>
+        </div>
+        <div class="activity-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        </div>
+    </div>
+
+    <!-- Explorer Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">EXPLORER</div>
+        <div class="file-tree">
+            <div class="file-item active" id="fileInput" onclick="switchView('input')">
+                <svg class="file-icon icon-shell" viewBox="0 0 24 24"><path d="M4 17l6-6-6-6v12zm9-2v2h7v-2h-7z"/></svg>
+                <span>commands.sh</span>
+            </div>
+            <div class="file-item" id="fileOutput" onclick="switchView('output')">
+                <svg class="file-icon icon-xml" viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+                <span>default.xml</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-area">
+        
+        <!-- Tabs -->
+        <div class="tabs-bar">
+            <div class="tab active" id="tabInput" onclick="switchView('input')">
+                <svg class="file-icon icon-shell" viewBox="0 0 24 24"><path d="M4 17l6-6-6-6v12zm9-2v2h7v-2h-7z"/></svg>
+                <span>commands.sh</span>
+            </div>
+            <div class="tab" id="tabOutput" onclick="switchView('output')">
+                <svg class="file-icon icon-xml" viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+                <span>default.xml</span>
+            </div>
+            <div class="action-area">
+                <button class="btn-action btn-copy" id="btnCopy" onclick="copyOutput()">
+                    <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                    COPY XML
+                </button>
+                <button class="btn-action" onclick="generate()">
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    RUN TASK
+                </button>
+            </div>
+        </div>
+
+        <!-- Editors Split -->
+        <div class="editors-container" id="editorContainer">
+            <!-- Input Pane -->
+            <div class="editor-pane" id="leftPane" style="flex: 0 0 50%;">
+                <div style="display:flex; height: 100%;">
+                    <div class="gutter" id="inputGutter">1</div>
+                    <div class="code-scroller">
+                        <textarea class="code-input" id="inputArea" spellcheck="false" 
+                            oninput="updateUI()" onscroll="syncScroll('input')">git clone https://github.com/yaap/device_xiaomi_vayu -b sixteen device/xiaomi/vayu
+git clone https://github.com/Oneplus-Nord5-development/android_device_oneplus_lexus -b lineage-23.0 device/oneplus/lexus</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Resizer Handle -->
+            <div class="resizer" id="dragSash"></div>
+
+            <!-- Output Pane -->
+            <div class="editor-pane" id="rightPane">
+                <div style="display:flex; height: 100%;">
+                    <div class="gutter" id="outputGutter">1</div>
+                    <div class="code-scroller">
+                        <div class="code-output" id="outputArea" contenteditable="false">
+                            <span class="hl-comment">&lt;!-- Output will appear here --&gt;</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Panel -->
+        <div class="bottom-panel" id="bottomPanel">
+            <div class="panel-header" onclick="togglePanel()">
+                <div class="panel-tab active">
+                    PROBLEMS <span class="badge" id="problemBadge">0</span>
+                </div>
+                <div class="panel-tab">TERMINAL</div>
+            </div>
+            <div class="panel-content" id="problemsList">
+                <!-- Errors injected here -->
+            </div>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="status-bar" id="statusBar">
+            <div>READY</div>
+            <div style="display:flex; gap:15px">
+                <span id="cursorPos">Ln 1, Col 1</span>
+                <span>UTF-8</span>
+                <span>BASH</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    const DEFAULT_BRANCH = "lineage-23.0";
+
+    window.onload = () => {
+        updateUI();
+        document.getElementById('outputArea').innerHTML = `<span class="hl-comment">&lt;!-- Click RUN TASK to generate manifest --&gt;</span>`;
+        updateGutters('output', 1);
+        initResizer();
+    };
+
+    function switchView(mode) {
+        const left = document.getElementById('leftPane');
+        const right = document.getElementById('rightPane');
+        const sash = document.getElementById('dragSash');
+        
+        ['tabInput', 'tabOutput'].forEach(id => document.getElementById(id).classList.remove('active'));
+        ['fileInput', 'fileOutput'].forEach(id => document.getElementById(id).classList.remove('active'));
+
+        if (mode === 'input') {
+            left.style.display = 'flex';
+            right.style.display = 'none';
+            sash.style.display = 'none';
+            left.style.flex = '1';
+            
+            document.getElementById('tabInput').classList.add('active');
+            document.getElementById('fileInput').classList.add('active');
+        } else if (mode === 'output') {
+            left.style.display = 'none';
+            right.style.display = 'flex';
+            sash.style.display = 'none';
+            right.style.flex = '1';
+            
+            document.getElementById('tabOutput').classList.add('active');
+            document.getElementById('fileOutput').classList.add('active');
+        } else if (mode === 'split') {
+            left.style.display = 'flex';
+            right.style.display = 'flex';
+            sash.style.display = 'block';
+            left.style.flex = '0 0 50%';
+            
+            document.getElementById('tabInput').classList.add('active');
+            document.getElementById('tabOutput').classList.add('active');
+            document.getElementById('fileInput').classList.add('active');
+            document.getElementById('fileOutput').classList.add('active');
+        }
+    }
+
+    function initResizer() {
+        const resizer = document.getElementById('dragSash');
+        const leftPane = document.getElementById('leftPane');
+        const container = document.getElementById('editorContainer');
+        
+        let isResizing = false;
+
+        resizer.addEventListener('mousedown', (e) => {
+            isResizing = true;
+            resizer.classList.add('resizing');
+            document.body.style.cursor = 'col-resize';
+            leftPane.style.pointerEvents = 'none';
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isResizing) return;
+            const containerRect = container.getBoundingClientRect();
+            let newLeftWidth = e.clientX - containerRect.left;
+            const minWidth = 100;
+            const maxWidth = containerRect.width - 100;
+            if (newLeftWidth < minWidth) newLeftWidth = minWidth;
+            if (newLeftWidth > maxWidth) newLeftWidth = maxWidth;
+            leftPane.style.flex = `0 0 ${newLeftWidth}px`;
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (isResizing) {
+                isResizing = false;
+                resizer.classList.remove('resizing');
+                document.body.style.cursor = '';
+                leftPane.style.pointerEvents = '';
+            }
+        });
+    }
+
+    function copyOutput() {
+        const outputElement = document.getElementById('outputArea');
+        const text = outputElement.innerText;
+        
+        if (!text || text.includes('Output will appear here')) return;
+
+        navigator.clipboard.writeText(text).then(() => {
+            const btn = document.getElementById('btnCopy');
+            const original = btn.innerHTML;
+            
+            btn.innerHTML = `<span style="font-size:12px">✓</span> COPIED`;
+            
+            setTimeout(() => {
+                btn.innerHTML = original;
+            }, 2000);
+        });
+    }
+
+    function generate() {
+        const inputVal = document.getElementById('inputArea').value;
+        const lines = inputVal.split('\n').filter(line => line.trim() !== '');
+        
+        let xmlHTML = `<span class="hl-tag">&lt;?xml</span> <span class="hl-attr">version</span>=<span class="hl-str">"1.0"</span> <span class="hl-attr">encoding</span>=<span class="hl-str">"UTF-8"</span><span class="hl-tag">?&gt;</span>\n`;
+        xmlHTML += `<span class="hl-comment">&lt;!-- Usage: paste code to .repo/local_manifests/default.xml in rom source root and repo sync --&gt;</span>\n`;
+        xmlHTML += `<span class="hl-tag">&lt;manifest&gt;</span>\n`;
+        
+        let problems = [];
+        let projects = [];
+        let remotes = new Map();
+
+        lines.forEach((line, index) => {
+            if (line.trim().startsWith('#')) return; 
+
+            const result = parseLine(line.trim(), index + 1);
+            
+            if (result.error) {
+                problems.push(result.errorData);
+            } else {
+                if (result.isDefault) {
+                    problems.push({
+                        line: index + 1,
+                        msg: `Warning: No branch specified. Defaulting to '${DEFAULT_BRANCH}'`,
+                        type: 'warn'
+                    });
+                }
+                
+                if (!remotes.has(result.data.remoteBase)) {
+                    remotes.set(result.data.remoteBase, result.data.remoteName);
+                }
+
+                projects.push({
+                    path: result.data.path,
+                    name: result.data.repoName,
+                    remote: result.data.remoteName,
+                    revision: result.data.revision
+                });
+            }
+        });
+
+        if (remotes.size > 0) {
+            xmlHTML += `\n    <span class="hl-comment">&lt;!-- Remotes --&gt;</span>\n`;
+            remotes.forEach((name, url) => {
+                xmlHTML += `    <span class="hl-tag">&lt;remote</span> <span class="hl-attr">name</span>=<span class="hl-str">"${name}"</span> <span class="hl-attr">fetch</span>=<span class="hl-str">"${url}"</span> <span class="hl-tag">/&gt;</span>\n`;
+            });
+        }
+
+        if (projects.length > 0) {
+            xmlHTML += `\n    <span class="hl-comment">&lt;!-- Projects --&gt;</span>\n`;
+            projects.forEach(p => {
+                xmlHTML += `    <span class="hl-tag">&lt;project</span> 
+        <span class="hl-attr">path</span>=<span class="hl-str">"${p.path}"</span> 
+        <span class="hl-attr">name</span>=<span class="hl-str">"${p.name}"</span> 
+        <span class="hl-attr">remote</span>=<span class="hl-str">"${p.remote}"</span> 
+        <span class="hl-attr">revision</span>=<span class="hl-str">"${p.revision}"</span> <span class="hl-tag">/&gt;</span>\n`;
+            });
+        }
+
+        xmlHTML += `<span class="hl-tag">&lt;/manifest&gt;</span>`;
+
+        document.getElementById('outputArea').innerHTML = xmlHTML;
+        updateGutters('output', xmlHTML.split('\n').length);
+        renderProblems(problems);
+        
+        switchView('split');
+    }
+
+    function parseLine(command, lineNum) {
+        let cleanCommand = command.replace(/^git\s+clone\s+/i, '').trim();
+
+        const urlRegex = /(https?:\/\/[^\s]+)/;
+        const urlMatch = cleanCommand.match(urlRegex);
+        
+        if (!urlMatch) {
+            return { error: true, errorData: { line: lineNum, msg: "Invalid Git URL detected", type: 'error' } };
+        }
+
+        const fullUrl = urlMatch[0];
+        const cleanUrl = fullUrl.endsWith('.git') ? fullUrl.slice(0, -4) : fullUrl;
+        
+        const parts = cleanUrl.split('/');
+        const repoName = parts[parts.length - 1];
+        
+        let remoteName = "origin";
+        let remoteBase = "";
+
+        if (parts.length >= 4) {
+             const baseParts = cleanUrl.split('/');
+             baseParts.pop(); 
+             remoteBase = baseParts.join('/');
+             remoteName = parts[parts.length - 2]; 
+        } else {
+             remoteBase = cleanUrl.replace('/' + repoName, '');
+             remoteName = "remote"; 
+        }
+
+        let remainder = cleanCommand.replace(fullUrl, ' ').trim();
+        const branchRegex = /(-b|--branch)\s+([^\s]+)/;
+        const branchMatch = remainder.match(branchRegex);
+        
+        let revision = DEFAULT_BRANCH;
+        let isDefault = true;
+
+        if (branchMatch && branchMatch[2]) {
+            revision = branchMatch[2];
+            isDefault = false;
+            remainder = remainder.replace(branchMatch[0], ' ').trim();
+        }
+
+        const path = remainder.trim();
+
+        if (!path) {
+            return { error: true, errorData: { line: lineNum, msg: `Missing local path argument`, type: 'error' } };
+        }
+
+        return { 
+            error: false, 
+            isDefault: isDefault, 
+            data: { 
+                path, 
+                repoName, 
+                remoteName, 
+                remoteBase, 
+                revision 
+            } 
+        };
+    }
+
+    function renderProblems(problems) {
+        const panel = document.getElementById('bottomPanel');
+        const list = document.getElementById('problemsList');
+        const badge = document.getElementById('problemBadge');
+        const sb = document.getElementById('statusBar');
+
+        list.innerHTML = '';
+        badge.innerText = problems.length;
+        badge.className = 'badge';
+
+        if (problems.length > 0) {
+            const hasError = problems.some(p => p.type === 'error');
+            if (hasError) {
+                badge.classList.add('err');
+                panel.classList.add('open');
+                sb.style.background = 'var(--accent-red)';
+                sb.innerText = "ERROR DETECTED";
+            } else {
+                sb.style.background = 'var(--accent-yellow)';
+                sb.style.color = '#15161e';
+                sb.innerText = "WARNINGS FOUND";
+            }
+
+            problems.forEach(p => {
+                const icon = p.type === 'error' ? '🔴' : '⚠️';
+                const styleClass = p.type === 'error' ? 'problem-entry error' : 'problem-entry warn';
+                list.innerHTML += `<div class="${styleClass}"><span>${icon}</span><span>[Ln ${p.line}] ${p.msg}</span></div>`;
+            });
+        } else {
+            panel.classList.remove('open');
+            sb.style.background = 'var(--accent-blue)';
+            sb.style.color = '#15161e';
+            sb.innerText = "SUCCESS - READY";
+        }
+    }
+
+    function updateUI() {
+        const inputArea = document.getElementById('inputArea');
+        const lines = inputArea.value.split('\n').length;
+        updateGutters('input', lines);
+        
+        const start = inputArea.selectionStart;
+        const val = inputArea.value.substr(0, start);
+        const row = val.split('\n').length;
+        const col = val.split('\n')[row-1].length + 1;
+        document.getElementById('cursorPos').innerText = `Ln ${row}, Col ${col}`;
+    }
+
+    function updateGutters(type, count) {
+        const gutter = type === 'input' ? document.getElementById('inputGutter') : document.getElementById('outputGutter');
+        let html = '';
+        for(let i=1; i<=count; i++) html += i + '<br>';
+        gutter.innerHTML = html;
+    }
+
+    function syncScroll(type) { }
+
+    function togglePanel() {
+        document.getElementById('bottomPanel').classList.toggle('open');
+    }
+
+    document.getElementById('inputArea').addEventListener('click', updateUI);
+    document.getElementById('inputArea').addEventListener('keyup', updateUI);
+
+</script>
+</body>
+</html>
