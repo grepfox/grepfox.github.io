@@ -453,7 +453,7 @@
                     <div class="code-scroller">
                         <textarea class="code-input" id="inputArea" spellcheck="false" 
                             oninput="updateUI()" onscroll="syncScroll('input')">git clone https://github.com/yaap/device_xiaomi_vayu -b sixteen device/xiaomi/vayu
-git clone https://github.com/Oneplus-Nord5-development/android_device_oneplus_lexus -b lineage-23.0 device/oneplus/lexus</textarea>
+git clone https://github.com/Oneplus-Nord5-development/android_device_oneplus_lexus -b lineage-23.0 device/oneplus/lexus --depth=1</textarea>
                     </div>
                 </div>
             </div>
@@ -636,7 +636,8 @@ git clone https://github.com/Oneplus-Nord5-development/android_device_oneplus_le
                     path: result.data.path,
                     name: result.data.repoName,
                     remote: result.data.remoteName,
-                    revision: result.data.revision
+                    revision: result.data.revision,
+                    depth: result.data.depth
                 });
             }
         });
@@ -651,11 +652,16 @@ git clone https://github.com/Oneplus-Nord5-development/android_device_oneplus_le
         if (projects.length > 0) {
             xmlHTML += `\n    <span class="hl-comment">&lt;!-- Projects --&gt;</span>\n`;
             projects.forEach(p => {
-                xmlHTML += `    <span class="hl-tag">&lt;project</span> 
-        <span class="hl-attr">path</span>=<span class="hl-str">"${p.path}"</span> 
-        <span class="hl-attr">name</span>=<span class="hl-str">"${p.name}"</span> 
-        <span class="hl-attr">remote</span>=<span class="hl-str">"${p.remote}"</span> 
-        <span class="hl-attr">revision</span>=<span class="hl-str">"${p.revision}"</span> <span class="hl-tag">/&gt;</span>\n`;
+                xmlHTML += `    <span class="hl-tag">&lt;project</span>\n`;
+                xmlHTML += `        <span class="hl-attr">path</span>=<span class="hl-str">"${p.path}"</span>\n`;
+                xmlHTML += `        <span class="hl-attr">name</span>=<span class="hl-str">"${p.name}"</span>\n`;
+                xmlHTML += `        <span class="hl-attr">remote</span>=<span class="hl-str">"${p.remote}"</span>\n`;
+                
+                if (p.depth) {
+                    xmlHTML += `        <span class="hl-attr">clone-depth</span>=<span class="hl-str">"${p.depth}"</span>\n`;
+                }
+                
+                xmlHTML += `        <span class="hl-attr">revision</span>=<span class="hl-str">"${p.revision}"</span> <span class="hl-tag">/&gt;</span>\n`;
             });
         }
 
@@ -670,6 +676,15 @@ git clone https://github.com/Oneplus-Nord5-development/android_device_oneplus_le
 
     function parseLine(command, lineNum) {
         let cleanCommand = command.replace(/^git\s+clone\s+/i, '').trim();
+
+        let depth = null;
+        const depthRegex = /--depth[=\s]+(\d+)/;
+        const depthMatch = cleanCommand.match(depthRegex);
+        
+        if (depthMatch) {
+            depth = depthMatch[1];
+            cleanCommand = cleanCommand.replace(depthMatch[0], '').trim();
+        }
 
         const urlRegex = /(https?:\/\/[^\s]+)/;
         const urlMatch = cleanCommand.match(urlRegex);
@@ -724,7 +739,8 @@ git clone https://github.com/Oneplus-Nord5-development/android_device_oneplus_le
                 repoName, 
                 remoteName, 
                 remoteBase, 
-                revision 
+                revision,
+                depth
             } 
         };
     }
