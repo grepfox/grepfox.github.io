@@ -2,90 +2,73 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blog | Grepfox</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Releases — Grepfox</title>
+  <meta name="description" content="Custom ROM builds, specifications and installation guides by Grepfox.">
+  <meta name="theme-color" content="#fbfbfa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111110" media="(prefers-color-scheme: dark)">
+  <script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+  <link rel="preload" href="fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
   <script async src="https://scripts.withcabin.com/hello.js"></script>
 </head>
 <body>
-  <!-- Header -->
-  <header class="site-header">
-    <div class="logo" data-text="Grepfox">Grepfox</div>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="blog.html" class="active">Blog</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
-    <button id="toggle-theme" title="Toggle dark mode">🌙</button>
+  <header class="top">
+    <div class="wrap">
+      <a href="index.html" class="brand">Grepfox</a>
+      <nav class="nav" aria-label="Main">
+        <a href="blog.html" aria-current="page">Releases</a>
+        <a href="blog-faq.html">FAQ</a>
+        <button class="theme-toggle" type="button" aria-label="Toggle theme"><svg class="i moon" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 9.5A5.5 5.5 0 0 1 6.5 2.5a5.5 5.5 0 1 0 7 7z"/></svg><svg class="i sun" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="2.75"/><path d="M8 1.5v1.25M8 13.25v1.25M1.5 8h1.25M13.25 8h1.25M3.4 3.4l.9.9M11.7 11.7l.9.9M3.4 12.6l.9-.9M11.7 4.3l.9-.9"/></svg></button>
+      </nav>
+    </div>
   </header>
 
-  <main>
-    <section class="blog-header">
-      <h1>Blog</h1>
-      <p>Latest articles and guides</p>
-    </section>
+  <main class="wrap">
+    <header class="page-head">
+      <h1>Releases</h1>
+      <p>Custom ROMs I build and maintain, with specs and flashing guides.</p>
+    </header>
 
-    <section class="blog-grid">
-      <article class="blog-card">
-        <div class="blog-image">
-          <img src="https://cdn.prod.website-files.com/659415b46df8ea43c3877776/65b7c35ba2496833f61a9789_frequently-asked-questions.jpeg" alt="FAQ">
+    <ul class="devices">
+      <li class="device">
+        <img src="images/thumb-nord-6.webp" alt="" width="56" height="88" loading="lazy">
+        <div>
+          <h3><a href="nord-6.html">OnePlus Nord 6 / Turbo 6</a><span class="badge">Unofficial</span></h3>
+          <p class="sub"><span class="cn">volkswagen</span> &middot; <span class="cn">volkswagenc</span> &middot; LineageOS 24.0</p>
         </div>
-        <div class="blog-content">
-          <div class="blog-meta">
-            <span class="blog-date">Jul 2025</span>
-            <span class="blog-category">Info</span>
-          </div>
-          <h2>Frequently Asked Questions</h2>
-          <p>This post contains answers to frequently asked questions so you won't need to go anywhere else.</p>
-          <a href="blog-faq.html" class="read-more">
-            Read more <i class="fas fa-arrow-right"></i>
-          </a>
+        <span class="where"><span>Guide</span><svg class="i" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+      </li>
+      <li class="device">
+        <img src="images/thumb-nord-5.webp" alt="" width="56" height="88" loading="lazy">
+        <div>
+          <h3><a href="https://wiki.lineageos.org/devices/lexus/" target="_blank" rel="noopener">OnePlus Nord 5</a><span class="badge">Official</span></h3>
+          <p class="sub"><span class="cn">lexus</span> &middot; LineageOS</p>
         </div>
-      </article>
+        <span class="where"><span>LineageOS Wiki</span><svg class="i go" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg></span>
+      </li>
+      <li class="device">
+        <img src="images/thumb-poco-x3-pro.webp" alt="" width="56" height="88" loading="lazy">
+        <div>
+          <h3><a href="https://yaaprom.org/device?codename=vayu" target="_blank" rel="noopener">Poco X3 Pro</a><span class="badge">Official</span></h3>
+          <p class="sub"><span class="cn">vayu</span> &middot; YAAP</p>
+        </div>
+        <span class="where"><span>YAAP Guide</span><svg class="i go" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg></span>
+      </li>
+    </ul>
 
-      <article class="blog-card">
-        <div class="blog-image">
-          <img src="https://amoeboids.com/wp-content/uploads/2020/02/Pointers-for-making-a-good-changelog.webp" alt="YAAP">
-        </div>
-        <div class="blog-content">
-          <div class="blog-meta">
-            <span class="blog-date">Jul 2025</span>
-            <span class="blog-category">ROM</span>
-          </div>
-          <h2>YAAP For Poco X3 Pro</h2>
-          <p>Click here to see info about YAAP for vayu.</p>
-          <a href="yaap-changelogs.html" class="read-more">
-            Read more <i class="fas fa-arrow-right"></i>
-          </a>
-        </div>
-      </article>
-
-      <article class="blog-card">
-        <div class="blog-image">
-          <img src="https://amoeboids.com/wp-content/uploads/2020/02/Pointers-for-making-a-good-changelog.webp" alt="LineageOS">
-        </div>
-        <div class="blog-content">
-          <div class="blog-meta">
-            <span class="blog-date">Sept 2025</span>
-            <span class="blog-category">ROM</span>
-          </div>
-          <h2>LineageOS For OnePlus Nord 5</h2>
-          <p>Click here to see info about LineageOS for Nord 5.</p>
-          <a href="lexus-22.html" class="read-more">
-            Read more <i class="fas fa-arrow-right"></i>
-          </a>
-        </div>
-      </article>
+    <section class="section">
+      <h2>Notes</h2>
+      <ul class="rows">
+        <li class="row"><span class="k">FAQ</span><a class="v" href="blog-faq.html">Signing, update cadence, contributing</a><svg class="i go" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></li>
+      </ul>
     </section>
   </main>
 
-  <footer>
-    <div class="footer-content">
-      <div>© 2025 Grepfox. All rights reserved.</div>
+  <footer class="foot">
+    <div class="wrap">
+      <span>&copy; 2025&ndash;2026 Grepfox</span>
+      <a href="mailto:grepfox@tutamail.com">grepfox@tutamail.com</a>
     </div>
   </footer>
 

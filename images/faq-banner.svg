@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0c0f17"/>
+      <stop offset="100%" stop-color="#141a29"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#10b981" stop-opacity="0.15"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255, 255, 255, 0.03)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <rect width="1200" height="675" fill="url(#grid)"/>
+
+  <!-- Subtle glow circle -->
+  <circle cx="600" cy="337" r="260" fill="url(#glow)"/>
+
+  <!-- Minimal Icon Container -->
+  <rect x="520" y="180" width="160" height="160" rx="36" fill="#131826" stroke="#252f48" stroke-width="2"/>
+  
+  <!-- Question Mark / FAQ symbol -->
+  <path d="M576 244 C576 226 590 214 606 214 C622 214 634 226 634 240 C634 252 626 260 616 266 C606 272 602 278 602 290 L602 294 M602 316 L602 320" 
+        fill="none" stroke="#60a5fa" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Headline text -->
+  <text x="600" y="405" text-anchor="middle" fill="#f8fafc" font-family="system-ui, -apple-system, 'Inter', sans-serif" font-size="34" font-weight="600" letter-spacing="-0.5">Frequently Asked Questions</text>
+  
+  <!-- Subtitle -->
+  <text x="600" y="445" text-anchor="middle" fill="#94a3b8" font-family="system-ui, -apple-system, 'Inter', sans-serif" font-size="18" font-weight="400">Build Signing • Release Cycles • Community Contributions</text>
+
+  <!-- Code/Tech decoration tag -->
+  <rect x="500" y="485" width="200" height="32" rx="16" fill="rgba(59, 130, 246, 0.1)" stroke="rgba(59, 130, 246, 0.25)" stroke-width="1"/>
+  <text x="600" y="506" text-anchor="middle" fill="#93c5fd" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="500">grepfox-faq-v2.0</text>
+</svg>

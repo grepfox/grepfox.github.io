@@ -2,48 +2,51 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact | Grepfox</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact — Grepfox</title>
+  <meta name="description" content="How to reach Grepfox: email, Telegram and GitHub.">
+  <meta name="theme-color" content="#fbfbfa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111110" media="(prefers-color-scheme: dark)">
+  <script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+  <link rel="preload" href="fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
   <script async src="https://scripts.withcabin.com/hello.js"></script>
 </head>
 <body>
-  <!-- Header -->
-  <header class="site-header">
-    <div class="logo" data-text="Grepfox">Grepfox</div>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="blog.html">Blog</a></li>
-        <li><a href="contact.html" class="active">Contact</a></li>
-      </ul>
-    </nav>
-    <button id="toggle-theme" title="Toggle dark mode">🌙</button>
+  <header class="top">
+    <div class="wrap">
+      <a href="index.html" class="brand">Grepfox</a>
+      <nav class="nav" aria-label="Main">
+        <a href="blog.html">Releases</a>
+        <a href="blog-faq.html">FAQ</a>
+        <button class="theme-toggle" type="button" aria-label="Toggle theme"><svg class="i moon" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 9.5A5.5 5.5 0 0 1 6.5 2.5a5.5 5.5 0 1 0 7 7z"/></svg><svg class="i sun" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="2.75"/><path d="M8 1.5v1.25M8 13.25v1.25M1.5 8h1.25M13.25 8h1.25M3.4 3.4l.9.9M11.7 11.7l.9.9M3.4 12.6l.9-.9M11.7 4.3l.9-.9"/></svg></button>
+      </nav>
+    </div>
   </header>
 
-  <main>
-    <section class="contact-section">
-      <div class="contact-card">
-        <h1>Contact Me</h1>
-        <div class="contact-links">
-          <a href="https://t.me/grepfox" target="_blank" class="contact-link">
-            <i class="fab fa-telegram"></i>
-            <span>@grepfox</span>
-          </a>
-          <a href="mailto:grepfox@tutamail.com" class="contact-link">
-            <i class="fas fa-envelope"></i>
-            <span>grepfox@tutamail.com</span>
-          </a>
-        </div>
-      </div>
-    </section>
+  <main class="wrap">
+    <header class="page-head">
+      <h1>Contact</h1>
+      <p>For device questions, test logs and bug reports.</p>
+    </header>
+
+    <ul class="rows">
+      <li class="row"><span class="k">Email</span><a class="v" href="mailto:grepfox@tutamail.com">grepfox@tutamail.com</a><button class="copy" type="button" onclick="copyText('grepfox@tutamail.com', this)" aria-label="Copy email address"><svg class="i clip" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/><path d="M10.5 3.5v-.5a1 1 0 0 0-1-1H3.5a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h.5"/></svg><svg class="i check" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.5 3 3 6-7"/></svg><span class="label">Copy</span></button></li>
+      <li class="row"><span class="k">Telegram</span><a class="v" href="https://t.me/grepfox" target="_blank" rel="noopener">@grepfox</a><svg class="i go" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg></li>
+      <li class="row"><span class="k">Support</span><a class="v" href="https://t.me/grepfox_chat" target="_blank" rel="noopener">@grepfox_chat <small>group</small></a><svg class="i go" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg></li>
+      <li class="row"><span class="k">GitHub</span><a class="v" href="https://github.com/grepfox" target="_blank" rel="noopener">github.com/grepfox</a><svg class="i go" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg></li>
+    </ul>
+
+    <div class="note" role="note">
+      <svg class="i" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2.5 14.5 13.5h-13z"/><path d="M8 6.5v3M8 11.6v.1"/></svg>
+      <p>Releases are signed with my own keys. Don&rsquo;t flash builds from unofficial mirrors.</p>
+    </div>
   </main>
 
-  <footer>
-    <div class="footer-content">
-      <div>© 2025 Grepfox. All rights reserved.</div>
+  <footer class="foot">
+    <div class="wrap">
+      <span>&copy; 2025&ndash;2026 Grepfox</span>
+      <a href="mailto:grepfox@tutamail.com">grepfox@tutamail.com</a>
     </div>
   </footer>
 

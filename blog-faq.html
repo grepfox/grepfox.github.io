@@ -2,59 +2,62 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FAQ | Grepfox Blog</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FAQ — Grepfox</title>
+  <meta name="description" content="Frequently asked questions about Grepfox ROM builds: signing, updates and contributing.">
+  <meta name="theme-color" content="#fbfbfa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111110" media="(prefers-color-scheme: dark)">
+  <script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+  <link rel="preload" href="fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
   <script async src="https://scripts.withcabin.com/hello.js"></script>
 </head>
 <body>
-  <!-- Header -->
-  <header class="site-header">
-    <div class="logo" data-text="Grepfox">Grepfox</div>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="blog.html" class="active">Blog</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
-    <button id="toggle-theme" title="Toggle dark mode">🌙</button>
+  <header class="top">
+    <div class="wrap">
+      <a href="index.html" class="brand">Grepfox</a>
+      <nav class="nav" aria-label="Main">
+        <a href="blog.html">Releases</a>
+        <a href="blog-faq.html" aria-current="page">FAQ</a>
+        <button class="theme-toggle" type="button" aria-label="Toggle theme"><svg class="i moon" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 9.5A5.5 5.5 0 0 1 6.5 2.5a5.5 5.5 0 1 0 7 7z"/></svg><svg class="i sun" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="2.75"/><path d="M8 1.5v1.25M8 13.25v1.25M1.5 8h1.25M13.25 8h1.25M3.4 3.4l.9.9M11.7 11.7l.9.9M3.4 12.6l.9-.9M11.7 4.3l.9-.9"/></svg></button>
+      </nav>
+    </div>
   </header>
 
-  <main>
-    <article class="blog-post">
-      <header class="post-header">
-        <div class="post-meta">July 2025 • Info</div>
-        <h1 class="post-title">Frequently Asked Questions (FAQ)</h1>
-      </header>
+  <main class="wrap">
+    <header class="page-head">
+      <h1>Frequently asked questions</h1>
+      <p>Build signing, update cycles and how to contribute.</p>
+    </header>
 
-      <div class="post-content">
+    <div class="faq prose">
+      <article>
         <h2>Are the builds signed?</h2>
-        <p>All public releases are signed by me through my private keys :D</p>
-
-        <h2>How can I contact Grepfox?</h2>
-        <p>You reach out on Telegram group chat: <a href="https://t.me/grepfox_chat">@grepfox</a> or via email: <a href="mailto:grepfox@tutamail.com">grepfox@tutamail.com</a>.</p>
-
-        <h2>How often are updates released?</h2>
-        <p>Stable releases are typically published monthly. However, test builds are updated faster for testing.</p>
-
+        <p>Yes. Public releases are signed with private release keys, not the generic AOSP test keys. That keeps builds verifiable and lets you update cleanly from month to month.</p>
+      </article>
+      <article>
+        <h2>How often are updates published?</h2>
+        <p>Stable builds usually land monthly, after the Android Security Bulletin merges and LineageOS branch syncs. Test builds go out more often in the Telegram test channels.</p>
+      </article>
+      <article>
         <h2>How can I contribute?</h2>
-        <p>We're open to community contributions! If you're a developer or tester, reach out via Telegram or email. You can also help by reporting bugs and giving feedback on test builds or throught donation while devs can help with improvements by shooting a PR to github repos.</p>
-
-        <h2>Can't find what you're looking for?</h2>
-        <p>No problem! Let us know in Telegram group and we will assist you.</p>
-
-        <br>
-        <p><strong>Thanks for reading. Wishing you a good day!</strong></p>
-      </div>
-    </article>
+        <p>Pull requests to the device and kernel trees on <a href="https://github.com/grepfox" target="_blank" rel="noopener">GitHub</a> are welcome. You can also help by testing builds and filing bug reports with a logcat (<code>adb logcat -d</code>).</p>
+      </article>
+      <article>
+        <h2>Where do I get help if an install fails?</h2>
+        <p>If something goes wrong while unlocking, flashing or updating, ask in the <a href="https://t.me/grepfox_chat" target="_blank" rel="noopener">Telegram support group</a>. Both I and the community can help.</p>
+      </article>
+      <article>
+        <h2>How do I reach you directly?</h2>
+        <p>Message me on Telegram at <a href="https://t.me/grepfox" target="_blank" rel="noopener">@grepfox</a> or email <a href="mailto:grepfox@tutamail.com">grepfox@tutamail.com</a>.</p>
+      </article>
+    </div>
   </main>
 
-  <footer>
-    <div class="footer-content">
-      <div>© 2025 Grepfox. All rights reserved.</div>
+  <footer class="foot">
+    <div class="wrap">
+      <span>&copy; 2025&ndash;2026 Grepfox</span>
+      <a href="mailto:grepfox@tutamail.com">grepfox@tutamail.com</a>
     </div>
   </footer>
 

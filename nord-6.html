@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LineageOS 24.0 for OnePlus Nord 6 / Turbo 6 — Grepfox</title>
+  <meta name="description" content="Specifications and installation guide for unofficial LineageOS 24.0 on the OnePlus Nord 6 (volkswagen) and OnePlus Turbo 6 (volkswagenc).">
+  <meta name="theme-color" content="#fbfbfa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111110" media="(prefers-color-scheme: dark)">
+  <script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+  <link rel="preload" href="fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <script async src="https://scripts.withcabin.com/hello.js"></script>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <a href="index.html" class="brand">Grepfox</a>
+      <nav class="nav" aria-label="Main">
+        <a href="blog.html" aria-current="page">Releases</a>
+        <a href="blog-faq.html">FAQ</a>
+        <button class="theme-toggle" type="button" aria-label="Toggle theme"><svg class="i moon" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 9.5A5.5 5.5 0 0 1 6.5 2.5a5.5 5.5 0 1 0 7 7z"/></svg><svg class="i sun" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="2.75"/><path d="M8 1.5v1.25M8 13.25v1.25M1.5 8h1.25M13.25 8h1.25M3.4 3.4l.9.9M11.7 11.7l.9.9M3.4 12.6l.9-.9M11.7 4.3l.9-.9"/></svg></button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <header class="page-head">
+      <h1>LineageOS 24.0 for OnePlus Nord 6 / Turbo 6</h1>
+      <p>Specs, downloads and a step-by-step install guide.</p>
+      <div class="meta"><span class="cn">volkswagen</span><span class="cn">volkswagenc</span><span>Android 16</span><span>Unofficial</span></div>
+    </header>
+
+    <figure class="figure cutout">
+      <img src="images/nord-6-hero.webp" alt="OnePlus Nord 6, back and front" width="701" height="866">
+      <figcaption>OnePlus Nord 6 &middot; Snapdragon 8s Gen 4 &middot; 165Hz AMOLED</figcaption>
+    </figure>
+
+    <section class="section">
+      <h2>Downloads</h2>
+      <ul class="rows">
+        <li class="row"><span class="k">Nord 6</span><a class="v" href="https://downloads.grepfox.online/volkswagen-32ce47/" target="_blank" rel="noopener">volkswagen builds</a><svg class="i go" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg></li>
+        <li class="row"><span class="k">Turbo 6</span><a class="v" href="https://downloads.grepfox.online/volkswagenc-b8f2fd/" target="_blank" rel="noopener">volkswagenc builds</a><svg class="i go" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg></li>
+        <li class="row"><span class="k">Support</span><a class="v" href="https://t.me/grepfox_chat" target="_blank" rel="noopener">Telegram @grepfox_chat</a><svg class="i go" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg></li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Hardware</h2>
+      <dl class="specs">
+        <div><dt>Device</dt><dd>OnePlus Nord 6 / OnePlus Turbo 6</dd></div>
+        <div><dt>Codename</dt><dd><code>volkswagen</code> / <code>volkswagenc</code></dd></div>
+        <div><dt>SoC</dt><dd>Qualcomm Snapdragon 8s Gen 4 (SM8735) &middot; Adreno 825</dd></div>
+        <div><dt>Display</dt><dd>6.78&Prime; 1.5K AMOLED &middot; 165Hz &middot; 2772 &times; 1272</dd></div>
+        <div><dt>RAM</dt><dd>8 / 12 / 16 GB LPDDR5X</dd></div>
+        <div><dt>Storage</dt><dd>256 / 512 GB UFS 4.0</dd></div>
+        <div><dt>Battery</dt><dd>7500 / 9000 mAh &middot; 80W SuperVOOC</dd></div>
+        <div><dt>Cameras</dt><dd>50MP Sony IMX with OIS + 8MP ultrawide &middot; 32MP front</dd></div>
+        <div><dt>Base</dt><dd>LineageOS 24.0 (AOSP)</dd></div>
+      </dl>
+    </section>
+
+    <div class="note" role="note">
+      <svg class="i" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2.5 14.5 13.5h-13z"/><path d="M8 6.5v3M8 11.6v.1"/></svg>
+      <p>Unlocking the bootloader wipes internal storage. Back up everything first. I&rsquo;m not responsible for bricked devices or lost data.</p>
+    </div>
+
+    <section class="section prose">
+      <h2>Installation</h2>
+      <ol class="steps">
+        <li>
+          <h3>Prepare</h3>
+          <ul>
+            <li>Back up all data (photos, contacts, 2FA keys).</li>
+            <li>Charge the battery to at least 70%.</li>
+            <li>Update to the latest stable OxygenOS.</li>
+            <li>Install the latest Google Platform Tools (ADB and Fastboot).</li>
+          </ul>
+        </li>
+        <li>
+          <h3>Enable OEM unlocking</h3>
+          <ol>
+            <li>Go to <strong>Settings &rarr; About device &rarr; Version</strong>.</li>
+            <li>Tap <strong>Build number</strong> 7 times to enable Developer options.</li>
+            <li>Open <strong>Settings &rarr; Additional settings &rarr; Developer options</strong>.</li>
+            <li>Turn on <strong>USB debugging</strong> and <strong>OEM unlocking</strong>.</li>
+          </ol>
+        </li>
+        <li>
+          <h3>Unlock the bootloader</h3>
+          <p>Connect the phone over USB and reboot to fastboot:</p>
+          <div class="code"><pre>adb reboot bootloader</pre><button class="copy" type="button" onclick="copySnippet(this)" aria-label="Copy command"><svg class="i clip" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/><path d="M10.5 3.5v-.5a1 1 0 0 0-1-1H3.5a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h.5"/></svg><svg class="i check" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.5 3 3 6-7"/></svg></button></div>
+          <p>Check that your computer sees the device:</p>
+          <div class="code"><pre>fastboot devices</pre><button class="copy" type="button" onclick="copySnippet(this)" aria-label="Copy command"><svg class="i clip" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/><path d="M10.5 3.5v-.5a1 1 0 0 0-1-1H3.5a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h.5"/></svg><svg class="i check" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.5 3 3 6-7"/></svg></button></div>
+          <p>Start the unlock:</p>
+          <div class="code"><pre>fastboot flashing unlock</pre><button class="copy" type="button" onclick="copySnippet(this)" aria-label="Copy command"><svg class="i clip" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/><path d="M10.5 3.5v-.5a1 1 0 0 0-1-1H3.5a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h.5"/></svg><svg class="i check" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.5 3 3 6-7"/></svg></button></div>
+          <p>On the phone, use the volume keys to pick <strong>UNLOCK THE BOOTLOADER</strong> and confirm with power.</p>
+        </li>
+        <li>
+          <h3>Flash boot images and recovery</h3>
+          <p>Extract the release archive, then flash the images in order:</p>
+          <div class="code"><pre>fastboot flash init_boot init_boot.img
+fastboot flash boot boot.img
+fastboot flash vendor_boot vendor_boot.img
+fastboot flash recovery recovery.img
+fastboot -w
+fastboot reboot recovery</pre><button class="copy" type="button" onclick="copySnippet(this)" aria-label="Copy command"><svg class="i clip" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/><path d="M10.5 3.5v-.5a1 1 0 0 0-1-1H3.5a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h.5"/></svg><svg class="i check" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.5 3 3 6-7"/></svg></button></div>
+        </li>
+        <li>
+          <h3>Sideload LineageOS</h3>
+          <p>In LineageOS Recovery:</p>
+          <ol>
+            <li>Choose <strong>Factory reset &rarr; Format data / factory reset</strong>.</li>
+            <li>Go back and choose <strong>Apply update &rarr; Apply from ADB</strong>.</li>
+            <li>Run the sideload from your computer:</li>
+          </ol>
+          <div class="code"><pre>adb sideload lineage-24.0-*.zip</pre><button class="copy" type="button" onclick="copySnippet(this)" aria-label="Copy command"><svg class="i clip" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/><path d="M10.5 3.5v-.5a1 1 0 0 0-1-1H3.5a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h.5"/></svg><svg class="i check" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.5 3 3 6-7"/></svg></button></div>
+          <p>If it stops with Error 7, wipe the super partition from fastboot and try again:</p>
+          <div class="code"><pre>fastboot wipe-super super_empty.img
+fastboot reboot recovery</pre><button class="copy" type="button" onclick="copySnippet(this)" aria-label="Copy command"><svg class="i clip" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/><path d="M10.5 3.5v-.5a1 1 0 0 0-1-1H3.5a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h.5"/></svg><svg class="i check" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.5 3 3 6-7"/></svg></button></div>
+        </li>
+        <li>
+          <h3>First boot</h3>
+          <p>Choose <strong>Reboot system now</strong>. The first boot takes about 60&ndash;90 seconds.</p>
+          <p>Later updates arrive in <strong>Settings &rarr; System &rarr; Updater</strong>.</p>
+        </li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <span>&copy; 2025&ndash;2026 Grepfox</span>
+      <a href="mailto:grepfox@tutamail.com">grepfox@tutamail.com</a>
+    </div>
+  </footer>
+
+  <script src="mode.js"></script>
+</body>
+</html>
