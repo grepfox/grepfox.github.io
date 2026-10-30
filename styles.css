@@ -514,6 +514,7 @@ main { flex: 1; }
   color: var(--fg-3);
 }
 .foot .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 1.5rem; }
+.foot-links { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; }
 .foot a { transition: color .2s ease; }
 .foot a:hover { color: var(--fg); }
 
